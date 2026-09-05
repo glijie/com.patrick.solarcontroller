@@ -1,0 +1,11 @@
+{
+  "name": "com.patrick.solarcontroller",
+  "version": "1.0.1",
+  "main": "app.js",
+  "scripts": {
+    "sync": "node scripts/sync-manifests.js",
+    "validate:project": "node scripts/validate-project.js",
+    "test": "npm run sync && node scripts/validate-project.js && node tests/smoke.js"
+  },
+  "dependencies": {}
+}

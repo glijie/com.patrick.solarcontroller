@@ -1,0 +1,43 @@
+{
+  "common": {
+    "unknown": "Unknown",
+    "on": "On",
+    "off": "Off"
+  },
+  "errors": {
+    "no_device": "No Solar Controller selected.",
+    "host_required": "Set the controller address in the device settings.",
+    "connection_error": "Cannot reach the Solar Controller. Check the controller address and network connection.",
+    "request_timeout": "The Solar Controller did not respond in time.",
+    "invalid_pwm": "Invalid PWM percentage.",
+    "invalid_max_output": "Invalid maximum output percentage.",
+    "invalid_sun_mode": "Invalid sun schedule mode."
+  },
+  "control_modes": {
+    "normal_off": "Solar control off",
+    "normal_blocked": "Waiting for time window",
+    "normal": "Normal",
+    "force_heat": "Force heat",
+    "price_boost": "Price boost",
+    "legionella": "Legionella active"
+  },
+  "advice": {
+    "gas": "Gas is better",
+    "elec": "Electricity is better"
+  },
+  "pair": {
+    "title": "Add Solar Controller",
+    "subtitle": "Enter the local address of your configured ESP32 Solar Controller.",
+    "connection_legend": "Controller",
+    "name_label": "Device name",
+    "default_name": "Solar Controller",
+    "address_label": "IP address or hostname",
+    "address_placeholder": "192.168.1.215",
+    "address_hint": "Homey connects directly over your local network. A DHCP reservation is recommended.",
+    "connect_button": "Test and add controller",
+    "address_required": "Enter the IP address or hostname of your Solar Controller.",
+    "address_invalid": "The controller address is invalid.",
+    "address_already_paired": "A Solar Controller with this address has already been added.",
+    "connection_failed": "Homey could not reach a Solar Controller at this address. Check the address, Wi-Fi and controller status."
+  }
+}

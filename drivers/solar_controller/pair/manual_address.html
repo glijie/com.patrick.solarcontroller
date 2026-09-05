@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Solar Controller</title>
+</head>
+<body>
+  <header class="homey-header">
+    <h1 class="homey-title" data-i18n="pair.title"></h1>
+    <p class="homey-subtitle" data-i18n="pair.subtitle"></p>
+  </header>
+
+  <form class="homey-form" id="pair-form">
+    <fieldset class="homey-form-fieldset">
+      <legend class="homey-form-legend" data-i18n="pair.connection_legend"></legend>
+
+      <div class="homey-form-group">
+        <label class="homey-form-label" for="controller-name" data-i18n="pair.name_label"></label>
+        <input class="homey-form-input" id="controller-name" type="text" autocomplete="off">
+      </div>
+
+      <div class="homey-form-group">
+        <label class="homey-form-label" for="controller-address" data-i18n="pair.address_label"></label>
+        <input class="homey-form-input" id="controller-address" type="text" inputmode="url" autocomplete="off" spellcheck="false">
+        <p class="homey-form-hint" data-i18n="pair.address_hint"></p>
+      </div>
+    </fieldset>
+
+    <button type="button" class="homey-button-primary-full" id="connect-button" data-i18n="pair.connect_button"></button>
+  </form>
+
+  <script>
+    (async function init() {
+      const form = document.getElementById('pair-form');
+      const button = document.getElementById('connect-button');
+      const address = document.getElementById('controller-address');
+      const name = document.getElementById('controller-name');
+
+      Homey.setTitle(Homey.__('pair.title'));
+      Homey.setSubtitle(Homey.__('pair.subtitle'));
+      name.value = Homey.__('pair.default_name');
+      address.placeholder = Homey.__('pair.address_placeholder');
+
+      async function pairController() {
+        const host = String(address.value || '').trim();
+        const deviceName = String(name.value || '').trim();
+
+        if (!host) {
+          await Homey.alert(Homey.__('pair.address_required'), 'warning');
+          address.focus();
+          return;
+        }
+
+        button.disabled = true;
+        button.classList.add('is-loading');
+        Homey.showLoadingOverlay();
+
+        try {
+          const result = await Homey.emit('validate_controller', { host, name: deviceName });
+          if (!result || !result.device) throw new Error(Homey.__('pair.connection_failed'));
+          await Homey.createDevice(result.device);
+          Homey.done();
+        } catch (err) {
+          const message = err && err.message ? err.message : String(err || Homey.__('pair.connection_failed'));
+          await Homey.alert(message, 'error');
+        } finally {
+          Homey.hideLoadingOverlay();
+          button.classList.remove('is-loading');
+          button.disabled = false;
+        }
+      }
+
+      button.addEventListener('click', pairController);
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        pairController();
+      });
+    })();
+  </script>
+</body>
+</html>

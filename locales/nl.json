@@ -1,0 +1,43 @@
+{
+  "common": {
+    "unknown": "Onbekend",
+    "on": "Aan",
+    "off": "Uit"
+  },
+  "errors": {
+    "no_device": "Geen Solar Controller geselecteerd.",
+    "host_required": "Stel het controlleradres in bij de apparaatinstellingen.",
+    "connection_error": "De Solar Controller is niet bereikbaar. Controleer het controlleradres en de netwerkverbinding.",
+    "request_timeout": "De Solar Controller antwoordde niet op tijd.",
+    "invalid_pwm": "Ongeldig PWM-percentage.",
+    "invalid_max_output": "Ongeldig maximaal uitgangspercentage.",
+    "invalid_sun_mode": "Ongeldige modus voor de zonregeling."
+  },
+  "control_modes": {
+    "normal_off": "Zonneregeling uit",
+    "normal_blocked": "Wacht op tijdvenster",
+    "normal": "Normaal",
+    "force_heat": "Force heat",
+    "price_boost": "Prijs-boost",
+    "legionella": "Legionella actief"
+  },
+  "advice": {
+    "gas": "Gas is beter",
+    "elec": "Elektrisch is beter"
+  },
+  "pair": {
+    "title": "Solar Controller toevoegen",
+    "subtitle": "Vul het lokale adres van je geconfigureerde ESP32 Solar Controller in.",
+    "connection_legend": "Controller",
+    "name_label": "Apparaatnaam",
+    "default_name": "Solar Controller",
+    "address_label": "IP-adres of hostnaam",
+    "address_placeholder": "192.168.1.215",
+    "address_hint": "Homey maakt rechtstreeks verbinding via je lokale netwerk. Een DHCP-reservering wordt aanbevolen.",
+    "connect_button": "Controller testen en toevoegen",
+    "address_required": "Vul het IP-adres of de hostnaam van je Solar Controller in.",
+    "address_invalid": "Het controlleradres is ongeldig.",
+    "address_already_paired": "Er is al een Solar Controller met dit adres toegevoegd.",
+    "connection_failed": "Homey kan op dit adres geen Solar Controller bereiken. Controleer het adres, Wi-Fi en de status van de controller."
+  }
+}

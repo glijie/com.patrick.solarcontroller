@@ -1,0 +1,10 @@
+{
+  "1.0.1": {
+    "en": "Small App Store update with a clearer description of the required Solar Controller hardware and an official link to the Solar Controller firmware, installation and hardware documentation.",
+    "nl": "Kleine App Store-update met een duidelijkere beschrijving van de benodigde Solar Controller-hardware en een officiële verwijzing naar de firmware-, installatie- en hardwaredocumentatie van het Solar Controller-project."
+  },
+  "1.0.0": {
+    "en": "Initial public release of Solar Controller for Homey, with local ESP32 integration, multi-controller support, live monitoring and control, Homey Flows, manual pairing with connection validation, and the new Solar Controller visual identity.",
+    "nl": "Eerste publieke release van Solar Controller voor Homey, met lokale ESP32-integratie, ondersteuning voor meerdere controllers, live monitoring en bediening, Homey Flows, handmatig koppelen met verbindingscontrole en de nieuwe Solar Controller-huisstijl."
+  }
+}

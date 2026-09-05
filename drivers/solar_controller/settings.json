@@ -1,0 +1,334 @@
+[
+  {
+    "id": "host",
+    "type": "text",
+    "label": {
+      "en": "Controller address",
+      "nl": "Controlleradres"
+    },
+    "value": "",
+    "hint": {
+      "en": "IP address or hostname of this Solar Controller, for example 192.168.1.215 or boiler.local. A DHCP reservation is recommended.",
+      "nl": "IP-adres of hostnaam van deze Solar Controller, bijvoorbeeld 192.168.1.215 of boiler.local. Een DHCP-reservering wordt aanbevolen."
+    }
+  },
+  {
+    "id": "performance_mode",
+    "type": "dropdown",
+    "label": {
+      "en": "Performance profile",
+      "nl": "Prestatieprofiel"
+    },
+    "value": "auto",
+    "values": [
+      {
+        "id": "auto",
+        "label": {
+          "en": "Recommended",
+          "nl": "Aanbevolen"
+        }
+      },
+      {
+        "id": "normal",
+        "label": {
+          "en": "Standard",
+          "nl": "Standaard"
+        }
+      },
+      {
+        "id": "legacy",
+        "label": {
+          "en": "Reduced load (older Homey Pro)",
+          "nl": "Lagere belasting (oudere Homey Pro)"
+        }
+      }
+    ],
+    "hint": {
+      "en": "Choose Recommended for normal use. Reduced load polls less often and limits concurrent requests on older Homey Pro models.",
+      "nl": "Kies Aanbevolen voor normaal gebruik. Lagere belasting ververst minder vaak en beperkt gelijktijdige aanvragen op oudere Homey Pro-modellen."
+    }
+  },
+  {
+    "id": "show_advanced",
+    "type": "checkbox",
+    "label": {
+      "en": "Use advanced performance settings",
+      "nl": "Geavanceerde prestatie-instellingen gebruiken"
+    },
+    "value": false,
+    "hint": {
+      "en": "When enabled, the advanced polling, update threshold and request settings below override the selected profile.",
+      "nl": "Indien ingeschakeld overschrijven de geavanceerde instellingen hieronder het gekozen prestatieprofiel."
+    }
+  },
+  {
+    "id": "poll_interval",
+    "type": "number",
+    "label": {
+      "en": "Refresh interval (seconds)",
+      "nl": "Verversingsinterval (seconden)"
+    },
+    "value": 5,
+    "min": 2,
+    "max": 60,
+    "step": 1,
+    "hint": {
+      "en": "Only used when 'Show advanced settings' is enabled.",
+      "nl": "Wordt alleen gebruikt als 'Geavanceerde instellingen' aan staat."
+    }
+  },
+  {
+    "id": "adaptive_polling",
+    "type": "checkbox",
+    "label": {
+      "en": "Adaptive refresh rate",
+      "nl": "Adaptief verversen"
+    },
+    "value": false,
+    "hint": {
+      "en": "Use a faster interval while PWM is active or Force Heat is on, and a slower interval while idle. Only used with advanced settings.",
+      "nl": "Gebruik een sneller interval wanneer PWM actief is of Force Heat aan staat en een langzamer interval in rust. Alleen gebruikt met geavanceerde instellingen."
+    }
+  },
+  {
+    "id": "poll_active_interval",
+    "type": "number",
+    "label": {
+      "en": "Active refresh interval (seconds)",
+      "nl": "Verversingsinterval actief (seconden)"
+    },
+    "value": 10,
+    "min": 2,
+    "max": 120,
+    "step": 1,
+    "hint": {
+      "en": "Polling interval while actively heating or controlling. Only used with advanced settings.",
+      "nl": "Verversingsinterval tijdens actieve sturing of verwarming. Alleen gebruikt met geavanceerde instellingen."
+    }
+  },
+  {
+    "id": "poll_idle_interval",
+    "type": "number",
+    "label": {
+      "en": "Idle refresh interval (seconds)",
+      "nl": "Verversingsinterval in rust (seconden)"
+    },
+    "value": 30,
+    "min": 5,
+    "max": 600,
+    "step": 1,
+    "hint": {
+      "en": "Polling interval while the controller is idle. Only used with advanced settings.",
+      "nl": "Verversingsinterval wanneer de controller in rust is. Alleen gebruikt met geavanceerde instellingen."
+    }
+  },
+  {
+    "id": "enable_heat_compare_poll",
+    "type": "checkbox",
+    "label": {
+      "en": "Update prices/advice (heat-compare)",
+      "nl": "Prijzen/advies bijwerken (heat-compare)"
+    },
+    "value": true,
+    "hint": {
+      "en": "Enable reading electricity/gas prices and heating advice. Disable to reduce load. Only used with advanced settings.",
+      "nl": "Lees stroom-/gasprijzen en verwarmadvies uit. Schakel uit om de belasting te verlagen. Alleen gebruikt met geavanceerde instellingen."
+    }
+  },
+  {
+    "id": "heat_compare_interval",
+    "type": "number",
+    "label": {
+      "en": "Price/advice interval (seconds)",
+      "nl": "Interval prijzen/advies (seconden)"
+    },
+    "value": 60,
+    "min": 10,
+    "max": 3600,
+    "step": 5,
+    "hint": {
+      "en": "How often electricity/gas prices and heating advice are refreshed. Only used with advanced settings.",
+      "nl": "Hoe vaak stroom-/gasprijzen en verwarmadvies worden ververst. Alleen gebruikt met geavanceerde instellingen."
+    }
+  },
+  {
+    "id": "update_only_on_change",
+    "type": "checkbox",
+    "label": {
+      "en": "Update only on real changes",
+      "nl": "Update alleen bij echte verandering"
+    },
+    "value": true,
+    "hint": {
+      "en": "Avoid capability updates when the change is smaller than the configured thresholds. Only used with advanced settings.",
+      "nl": "Voorkom capability-updates wanneer de verandering kleiner is dan de ingestelde drempels. Alleen gebruikt met geavanceerde instellingen."
+    }
+  },
+  {
+    "id": "threshold_power_w",
+    "type": "number",
+    "label": {
+      "en": "Power update threshold (W)",
+      "nl": "Vermogensdrempel voor updates (W)"
+    },
+    "value": 5,
+    "min": 0,
+    "max": 500,
+    "step": 1,
+    "hint": {
+      "en": "Minimum power change before Homey is updated. Only used with advanced settings.",
+      "nl": "Minimale vermogenswijziging voordat Homey wordt bijgewerkt. Alleen gebruikt met geavanceerde instellingen."
+    }
+  },
+  {
+    "id": "threshold_pwm_pct",
+    "type": "number",
+    "label": {
+      "en": "PWM update threshold (%)",
+      "nl": "PWM-drempel voor updates (%)"
+    },
+    "value": 1,
+    "min": 0,
+    "max": 20,
+    "step": 1,
+    "hint": {
+      "en": "Minimum PWM change before Homey is updated. Only used with advanced settings.",
+      "nl": "Minimale PWM-wijziging voordat Homey wordt bijgewerkt. Alleen gebruikt met geavanceerde instellingen."
+    }
+  },
+  {
+    "id": "threshold_temp_c",
+    "type": "number",
+    "label": {
+      "en": "Temperature update threshold (°C)",
+      "nl": "Temperatuurdrempel voor updates (°C)"
+    },
+    "value": 0.1,
+    "min": 0,
+    "max": 5,
+    "step": 0.1,
+    "hint": {
+      "en": "Minimum temperature change before Homey is updated. Only used with advanced settings.",
+      "nl": "Minimale temperatuurwijziging voordat Homey wordt bijgewerkt. Alleen gebruikt met geavanceerde instellingen."
+    }
+  },
+  {
+    "id": "threshold_price",
+    "type": "number",
+    "label": {
+      "en": "Price update threshold",
+      "nl": "Prijsdrempel voor updates"
+    },
+    "value": 0.001,
+    "min": 0,
+    "max": 1,
+    "step": 0.001,
+    "hint": {
+      "en": "Minimum price change before Homey is updated. Only used with advanced settings.",
+      "nl": "Minimale prijswijziging voordat Homey wordt bijgewerkt. Alleen gebruikt met geavanceerde instellingen."
+    }
+  },
+  {
+    "id": "trigger_debounce_ms",
+    "type": "number",
+    "label": {
+      "en": "Flow trigger debounce (ms)",
+      "nl": "Flow-triggervertraging (ms)"
+    },
+    "value": 250,
+    "min": 0,
+    "max": 5000,
+    "step": 50,
+    "hint": {
+      "en": "Prevents bursts of different Flow triggers. Only used with advanced settings.",
+      "nl": "Voorkomt korte pieken van verschillende Flow-triggers. Alleen gebruikt met geavanceerde instellingen."
+    }
+  },
+  {
+    "id": "trigger_min_interval_s",
+    "type": "number",
+    "label": {
+      "en": "Minimum time between same trigger (s)",
+      "nl": "Minimale tijd tussen dezelfde trigger (s)"
+    },
+    "value": 2,
+    "min": 0,
+    "max": 60,
+    "step": 1,
+    "hint": {
+      "en": "Minimum time between repeated instances of the same Flow trigger. Only used with advanced settings.",
+      "nl": "Minimale tijd tussen herhaalde activaties van dezelfde Flow-trigger. Alleen gebruikt met geavanceerde instellingen."
+    }
+  },
+  {
+    "id": "max_concurrent_requests",
+    "type": "number",
+    "label": {
+      "en": "Maximum concurrent API requests",
+      "nl": "Maximaal gelijktijdige API-aanvragen"
+    },
+    "value": 2,
+    "min": 1,
+    "max": 3,
+    "step": 1,
+    "hint": {
+      "en": "Limits simultaneous requests to the ESP32. Use 1 to reduce load on older Homey Pro models. Only used with advanced settings.",
+      "nl": "Beperkt gelijktijdige aanvragen naar de ESP32. Gebruik 1 om oudere Homey Pro-modellen minder te belasten. Alleen gebruikt met geavanceerde instellingen."
+    }
+  },
+  {
+    "id": "timeout_ms",
+    "type": "number",
+    "label": {
+      "en": "HTTP timeout (ms)",
+      "nl": "HTTP-timeout (ms)"
+    },
+    "value": 2500,
+    "min": 500,
+    "max": 10000,
+    "step": 100,
+    "hint": {
+      "en": "Only used when 'Show advanced settings' is enabled.",
+      "nl": "Wordt alleen gebruikt als 'Geavanceerde instellingen' aan staat."
+    }
+  },
+  {
+    "id": "enable_extra_temps",
+    "type": "checkbox",
+    "label": {
+      "en": "Enable extra temperature sensors (2/3/4)",
+      "nl": "Extra temperatuursensoren (2/3/4) inschakelen"
+    },
+    "value": true,
+    "hint": {
+      "en": "Enable temperature sensors 2, 3 and 4. Disable to reduce updates. Only used with advanced settings.",
+      "nl": "Schakel temperatuursensoren 2, 3 en 4 in. Schakel uit om minder updates te verwerken. Alleen gebruikt met geavanceerde instellingen."
+    }
+  },
+  {
+    "id": "debug_logging",
+    "type": "checkbox",
+    "label": {
+      "en": "Enable detailed logging",
+      "nl": "Uitgebreide logging"
+    },
+    "value": false,
+    "hint": {
+      "en": "Write additional connection and polling information to the app log for troubleshooting.",
+      "nl": "Schrijf extra verbindings- en pollinginformatie naar het app-log voor probleemoplossing."
+    }
+  },
+  {
+    "id": "pwm_set_endpoint",
+    "type": "text",
+    "label": {
+      "en": "PWM API endpoint (advanced)",
+      "nl": "PWM API-endpoint (geavanceerd)"
+    },
+    "value": "/api/pwm",
+    "hint": {
+      "en": "Default: /api/pwm. Only change this if your firmware uses a different direct PWM endpoint; newer firmware can use the built-in fallback.",
+      "nl": "Standaard: /api/pwm. Alleen aanpassen als je firmware een ander direct PWM-endpoint gebruikt; nieuwere firmware kan de ingebouwde fallback gebruiken."
+    }
+  }
+]

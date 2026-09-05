@@ -1,0 +1,9 @@
+.git/
+*.md
+scripts/
+tests/
+*.zip
+*.log
+.DS_Store
+
+store_assets/
