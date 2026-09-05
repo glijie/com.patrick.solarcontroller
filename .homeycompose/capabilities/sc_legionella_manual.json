@@ -1,0 +1,12 @@
+{
+  "type": "boolean",
+  "title": {
+    "en": "Legionella cycle",
+    "nl": "Legionella-cyclus"
+  },
+  "getable": true,
+  "setable": true,
+  "uiComponent": "toggle",
+  "insights": false,
+  "icon": "/assets/icons/legionella.svg"
+}

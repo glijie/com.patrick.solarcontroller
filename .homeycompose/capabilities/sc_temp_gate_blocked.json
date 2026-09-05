@@ -1,0 +1,12 @@
+{
+  "type": "boolean",
+  "title": {
+    "en": "Temperature gate blocked",
+    "nl": "Temperatuurvrijgave geblokkeerd"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "insights": false,
+  "icon": "/assets/icons/safety.svg"
+}

@@ -1,0 +1,18 @@
+{
+  "id": "temp_gate_blocked",
+  "title": {
+    "en": "Temperature gate started blocking",
+    "nl": "Temperatuurvrijgave is gaan blokkeren"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "title": {
+        "en": "Device",
+        "nl": "Apparaat"
+      },
+      "filter": "driver_id=solar_controller"
+    }
+  ]
+}

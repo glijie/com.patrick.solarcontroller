@@ -1,0 +1,53 @@
+{
+  "id": "mc_role_is",
+  "title": {
+    "en": "Controller role is…",
+    "nl": "Controllerrol is…"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "title": {
+        "en": "Device",
+        "nl": "Apparaat"
+      },
+      "filter": "driver_id=solar_controller"
+    },
+    {
+      "name": "role",
+      "type": "dropdown",
+      "title": {
+        "en": "Role",
+        "nl": "Rol"
+      },
+      "values": [
+        {
+          "id": "standalone",
+          "title": {
+            "en": "Standalone",
+            "nl": "Standalone"
+          }
+        },
+        {
+          "id": "master",
+          "title": {
+            "en": "Master",
+            "nl": "Master"
+          }
+        },
+        {
+          "id": "slave",
+          "title": {
+            "en": "Slave",
+            "nl": "Slave"
+          }
+        }
+      ]
+    }
+  ],
+  "titleFormatted": {
+    "en": "Controller role is [[role]]",
+    "nl": "Controllerrol is [[role]]"
+  }
+}

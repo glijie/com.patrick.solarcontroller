@@ -1,0 +1,28 @@
+{
+  "id": "control_mode_changed",
+  "title": {
+    "en": "Control mode changed",
+    "nl": "Regelmodus gewijzigd"
+  },
+  "tokens": [
+    {
+      "name": "mode",
+      "type": "string",
+      "title": {
+        "en": "Mode",
+        "nl": "Modus"
+      }
+    }
+  ],
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "title": {
+        "en": "Device",
+        "nl": "Apparaat"
+      },
+      "filter": "driver_id=solar_controller"
+    }
+  ]
+}

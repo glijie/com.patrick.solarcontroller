@@ -1,0 +1,33 @@
+{
+  "id": "set_pwm_percent",
+  "title": {
+    "en": "Set PWM to…",
+    "nl": "Zet PWM op…"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "title": {
+        "en": "Device",
+        "nl": "Apparaat"
+      },
+      "filter": "driver_id=solar_controller"
+    },
+    {
+      "name": "percent",
+      "type": "number",
+      "title": {
+        "en": "PWM (%)",
+        "nl": "PWM (%)"
+      },
+      "min": 0,
+      "max": 100,
+      "step": 1
+    }
+  ],
+  "titleFormatted": {
+    "en": "Set PWM to [[percent]] %",
+    "nl": "Zet PWM op [[percent]] %"
+  }
+}

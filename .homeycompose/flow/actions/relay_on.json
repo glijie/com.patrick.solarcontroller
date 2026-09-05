@@ -1,0 +1,18 @@
+{
+  "id": "relay_on",
+  "title": {
+    "en": "Turn relay on",
+    "nl": "Relais inschakelen"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "title": {
+        "en": "Device",
+        "nl": "Apparaat"
+      },
+      "filter": "driver_id=solar_controller"
+    }
+  ]
+}

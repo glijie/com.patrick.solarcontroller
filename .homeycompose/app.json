@@ -1,0 +1,45 @@
+{
+  "id": "com.patrick.solarcontroller",
+  "name": {
+    "en": "Solar Controller",
+    "nl": "Solar Controller"
+  },
+  "description": {
+    "en": "Turn surplus solar power into useful hot water with local monitoring and control.",
+    "nl": "Gebruik je zonnestroomoverschot voor warm water met lokale monitoring en bediening."
+  },
+  "author": {
+    "name": "Patrick"
+  },
+  "version": "1.0.1",
+  "compatibility": ">=7.4.0",
+  "sdk": 3,
+  "category": "energy",
+  "platforms": [
+    "local"
+  ],
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png",
+    "xlarge": "/assets/images/xlarge.png"
+  },
+  "runtime": "nodejs",
+  "brandColor": "#06386E",
+  "tags": {
+    "en": [
+      "solar",
+      "energy",
+      "boiler",
+      "ESP32",
+      "self-consumption"
+    ],
+    "nl": [
+      "zonne-energie",
+      "energie",
+      "boiler",
+      "ESP32",
+      "eigenverbruik"
+    ]
+  },
+  "homepage": "https://github.com/glijie/solar-controller-firmware"
+}

@@ -1,0 +1,18 @@
+{
+  "id": "temp_gate_released",
+  "title": {
+    "en": "Temperature gate released",
+    "nl": "Temperatuurvrijgave vrijgegeven"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "title": {
+        "en": "Device",
+        "nl": "Apparaat"
+      },
+      "filter": "driver_id=solar_controller"
+    }
+  ]
+}

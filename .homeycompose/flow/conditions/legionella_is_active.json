@@ -1,0 +1,26 @@
+{
+  "id": "legionella_is_active",
+  "title": {
+    "en": "Legionella is active",
+    "nl": "Legionella is actief"
+  },
+  "hint": {
+    "en": "Returns true when Legionella is active.",
+    "nl": "Waar als Legionella actief is."
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "title": {
+        "en": "Device",
+        "nl": "Apparaat"
+      },
+      "filter": "driver_id=solar_controller"
+    }
+  ],
+  "titleFormatted": {
+    "en": "Legionella is active",
+    "nl": "Legionella is actief"
+  }
+}

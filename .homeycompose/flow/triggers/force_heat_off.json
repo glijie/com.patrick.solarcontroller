@@ -1,0 +1,18 @@
+{
+  "id": "force_heat_off",
+  "title": {
+    "en": "Force Heat turned off",
+    "nl": "Force Heat uitgeschakeld"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "title": {
+        "en": "Device",
+        "nl": "Apparaat"
+      },
+      "filter": "driver_id=solar_controller"
+    }
+  ]
+}

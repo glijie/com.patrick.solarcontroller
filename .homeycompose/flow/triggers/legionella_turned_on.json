@@ -1,0 +1,40 @@
+{
+  "id": "legionella_turned_on",
+  "title": {
+    "en": "Legionella cycle started",
+    "nl": "Legionella-cyclus gestart"
+  },
+  "hint": {
+    "en": "Triggers when Legionella becomes active.",
+    "nl": "Wordt geactiveerd wanneer Legionella actief wordt."
+  },
+  "tokens": [
+    {
+      "name": "active",
+      "type": "boolean",
+      "title": {
+        "en": "Active",
+        "nl": "Actief"
+      }
+    },
+    {
+      "name": "state",
+      "type": "string",
+      "title": {
+        "en": "State",
+        "nl": "Status"
+      }
+    }
+  ],
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "title": {
+        "en": "Device",
+        "nl": "Apparaat"
+      },
+      "filter": "driver_id=solar_controller"
+    }
+  ]
+}

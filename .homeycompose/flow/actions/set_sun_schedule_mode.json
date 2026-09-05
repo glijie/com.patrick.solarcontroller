@@ -1,0 +1,60 @@
+{
+  "id": "set_sun_schedule_mode",
+  "title": {
+    "en": "Set sun schedule to...",
+    "nl": "Zet zonregeling op..."
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "title": {
+        "en": "Device",
+        "nl": "Apparaat"
+      },
+      "filter": "driver_id=solar_controller"
+    },
+    {
+      "name": "mode",
+      "type": "dropdown",
+      "title": {
+        "en": "Mode",
+        "nl": "Modus"
+      },
+      "values": [
+        {
+          "id": "always",
+          "title": {
+            "en": "Always",
+            "nl": "Altijd"
+          }
+        },
+        {
+          "id": "manual",
+          "title": {
+            "en": "Manual window",
+            "nl": "Handmatig venster"
+          }
+        },
+        {
+          "id": "cheapest_daylight",
+          "title": {
+            "en": "Cheapest daylight",
+            "nl": "Goedkoopste daglicht"
+          }
+        },
+        {
+          "id": "off",
+          "title": {
+            "en": "Off",
+            "nl": "Uit"
+          }
+        }
+      ]
+    }
+  ],
+  "titleFormatted": {
+    "en": "Set sun schedule to [[mode]]",
+    "nl": "Zet zonregeling op [[mode]]"
+  }
+}

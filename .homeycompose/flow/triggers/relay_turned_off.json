@@ -1,0 +1,18 @@
+{
+  "id": "relay_turned_off",
+  "title": {
+    "en": "Relay turned off",
+    "nl": "Relais uitgeschakeld"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "title": {
+        "en": "Device",
+        "nl": "Apparaat"
+      },
+      "filter": "driver_id=solar_controller"
+    }
+  ]
+}

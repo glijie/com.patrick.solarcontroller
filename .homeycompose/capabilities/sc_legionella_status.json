@@ -1,0 +1,63 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Legionella status",
+    "nl": "Legionellastatus"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "values": [
+    {
+      "id": "unknown",
+      "title": {
+        "en": "Unknown",
+        "nl": "Onbekend"
+      }
+    },
+    {
+      "id": "disabled",
+      "title": {
+        "en": "Disabled",
+        "nl": "Uitgeschakeld"
+      }
+    },
+    {
+      "id": "idle",
+      "title": {
+        "en": "Idle",
+        "nl": "Rust"
+      }
+    },
+    {
+      "id": "running",
+      "title": {
+        "en": "Running",
+        "nl": "Actief"
+      }
+    },
+    {
+      "id": "ok",
+      "title": {
+        "en": "OK",
+        "nl": "OK"
+      }
+    },
+    {
+      "id": "due",
+      "title": {
+        "en": "Due",
+        "nl": "Nodig"
+      }
+    },
+    {
+      "id": "no_sensor",
+      "title": {
+        "en": "No sensor",
+        "nl": "Geen sensor"
+      }
+    }
+  ],
+  "insights": false,
+  "icon": "/assets/icons/legionella.svg"
+}

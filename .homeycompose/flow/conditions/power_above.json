@@ -1,0 +1,33 @@
+{
+  "id": "power_above",
+  "title": {
+    "en": "Power is above…",
+    "nl": "Vermogen is boven…"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "title": {
+        "en": "Device",
+        "nl": "Apparaat"
+      },
+      "filter": "driver_id=solar_controller"
+    },
+    {
+      "name": "threshold",
+      "type": "number",
+      "title": {
+        "en": "Threshold (W)",
+        "nl": "Drempel (W)"
+      },
+      "min": 0,
+      "max": 30000,
+      "step": 10
+    }
+  ],
+  "titleFormatted": {
+    "en": "Power > [[threshold]] W",
+    "nl": "Vermogen > [[threshold]] W"
+  }
+}

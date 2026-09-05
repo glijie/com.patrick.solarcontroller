@@ -1,0 +1,30 @@
+{
+  "id": "elec_price_below",
+  "title": {
+    "en": "Electricity price is below…",
+    "nl": "Stroomprijs is lager dan…"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "title": {
+        "en": "Device",
+        "nl": "Apparaat"
+      },
+      "filter": "driver_id=solar_controller"
+    },
+    {
+      "name": "threshold",
+      "type": "number",
+      "title": {
+        "en": "€/kWh",
+        "nl": "€/kWh"
+      }
+    }
+  ],
+  "titleFormatted": {
+    "en": "Electricity price < [[threshold]] €/kWh",
+    "nl": "Stroomprijs < [[threshold]] €/kWh"
+  }
+}

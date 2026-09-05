@@ -1,0 +1,14 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Peers online",
+    "nl": "Peers online"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "decimals": 0,
+  "min": 0,
+  "insights": false,
+  "icon": "/assets/icons/safety.svg"
+}

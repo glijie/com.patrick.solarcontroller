@@ -1,0 +1,28 @@
+{
+  "id": "mc_role_changed",
+  "title": {
+    "en": "Controller role changed",
+    "nl": "Controllerrol gewijzigd"
+  },
+  "tokens": [
+    {
+      "name": "role",
+      "type": "string",
+      "title": {
+        "en": "Role",
+        "nl": "Rol"
+      }
+    }
+  ],
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "title": {
+        "en": "Device",
+        "nl": "Apparaat"
+      },
+      "filter": "driver_id=solar_controller"
+    }
+  ]
+}

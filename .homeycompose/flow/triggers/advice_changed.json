@@ -1,0 +1,56 @@
+{
+  "id": "advice_changed",
+  "title": {
+    "en": "Heating advice changed",
+    "nl": "Verwarmadvies gewijzigd"
+  },
+  "hint": {
+    "en": "Triggers when the heating advice changes.",
+    "nl": "Wordt geactiveerd wanneer het verwarmadvies verandert."
+  },
+  "tokens": [
+    {
+      "name": "advice",
+      "type": "string",
+      "title": {
+        "en": "Advice",
+        "nl": "Advies"
+      }
+    },
+    {
+      "name": "advice_id",
+      "type": "string",
+      "title": {
+        "en": "Advice id",
+        "nl": "Advies id"
+      }
+    },
+    {
+      "name": "elec_price_now",
+      "type": "number",
+      "title": {
+        "en": "Electricity price now",
+        "nl": "Stroomprijs nu"
+      }
+    },
+    {
+      "name": "gas_price_today",
+      "type": "number",
+      "title": {
+        "en": "Gas price today",
+        "nl": "Gasprijs vandaag"
+      }
+    }
+  ],
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "title": {
+        "en": "Device",
+        "nl": "Apparaat"
+      },
+      "filter": "driver_id=solar_controller"
+    }
+  ]
+}

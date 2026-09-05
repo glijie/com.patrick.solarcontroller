@@ -1,0 +1,18 @@
+{
+  "id": "relay_off",
+  "title": {
+    "en": "Turn relay off",
+    "nl": "Relais uitschakelen"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "title": {
+        "en": "Device",
+        "nl": "Apparaat"
+      },
+      "filter": "driver_id=solar_controller"
+    }
+  ]
+}

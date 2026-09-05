@@ -1,0 +1,32 @@
+{
+  "id": "gas_price_updated",
+  "title": {
+    "en": "Gas price updated",
+    "nl": "Gasprijs bijgewerkt"
+  },
+  "hint": {
+    "en": "Triggers when the gas price changes.",
+    "nl": "Wordt geactiveerd wanneer de gasprijs verandert."
+  },
+  "tokens": [
+    {
+      "name": "gas_price_today",
+      "type": "number",
+      "title": {
+        "en": "Gas price today",
+        "nl": "Gasprijs vandaag"
+      }
+    }
+  ],
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "title": {
+        "en": "Device",
+        "nl": "Apparaat"
+      },
+      "filter": "driver_id=solar_controller"
+    }
+  ]
+}

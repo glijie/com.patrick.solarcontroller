@@ -1,0 +1,37 @@
+{
+  "id": "temp4_changed",
+  "title": {
+    "en": "Temperature 4 changed",
+    "nl": "Temperatuur 4 gewijzigd"
+  },
+  "hint": {
+    "en": "Triggers when Temperature 4 changes.",
+    "nl": "Wordt geactiveerd als Temperatuur 4 verandert."
+  },
+  "tokens": [
+    {
+      "name": "temperature",
+      "type": "number",
+      "title": {
+        "en": "Temperature (°C)",
+        "nl": "Temperatuur (°C)"
+      },
+      "example": 48.5
+    }
+  ],
+  "titleFormatted": {
+    "en": "Temperature 4 changed",
+    "nl": "Temperatuur 4 gewijzigd"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "title": {
+        "en": "Device",
+        "nl": "Apparaat"
+      },
+      "filter": "driver_id=solar_controller"
+    }
+  ]
+}

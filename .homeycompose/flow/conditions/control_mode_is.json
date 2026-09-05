@@ -1,0 +1,74 @@
+{
+  "id": "control_mode_is",
+  "title": {
+    "en": "Control mode is...",
+    "nl": "Regelmodus is..."
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "title": {
+        "en": "Device",
+        "nl": "Apparaat"
+      },
+      "filter": "driver_id=solar_controller"
+    },
+    {
+      "name": "mode",
+      "type": "dropdown",
+      "title": {
+        "en": "Mode",
+        "nl": "Modus"
+      },
+      "values": [
+        {
+          "id": "NORMAL",
+          "title": {
+            "en": "Normal",
+            "nl": "Normaal"
+          }
+        },
+        {
+          "id": "NORMAL_BLOCKED",
+          "title": {
+            "en": "Normal blocked",
+            "nl": "Normaal geblokkeerd"
+          }
+        },
+        {
+          "id": "NORMAL_OFF",
+          "title": {
+            "en": "Normal off",
+            "nl": "Normaal uit"
+          }
+        },
+        {
+          "id": "FORCE_HEAT",
+          "title": {
+            "en": "Force heat",
+            "nl": "Force heat"
+          }
+        },
+        {
+          "id": "PRICE_BOOST",
+          "title": {
+            "en": "Price boost",
+            "nl": "Prijs boost"
+          }
+        },
+        {
+          "id": "LEGIONELLA",
+          "title": {
+            "en": "Legionella",
+            "nl": "Legionella"
+          }
+        }
+      ]
+    }
+  ],
+  "titleFormatted": {
+    "en": "Control mode is [[mode]]",
+    "nl": "Regelmodus is [[mode]]"
+  }
+}

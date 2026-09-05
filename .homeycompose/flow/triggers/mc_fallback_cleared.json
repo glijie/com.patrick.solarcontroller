@@ -1,0 +1,18 @@
+{
+  "id": "mc_fallback_cleared",
+  "title": {
+    "en": "Multi Controller fallback cleared",
+    "nl": "Multi Controller-fallback beëindigd"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "title": {
+        "en": "Device",
+        "nl": "Apparaat"
+      },
+      "filter": "driver_id=solar_controller"
+    }
+  ]
+}

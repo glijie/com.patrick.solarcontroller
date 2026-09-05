@@ -1,0 +1,33 @@
+{
+  "id": "pwm_above",
+  "title": {
+    "en": "PWM is above…",
+    "nl": "PWM is boven…"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "title": {
+        "en": "Device",
+        "nl": "Apparaat"
+      },
+      "filter": "driver_id=solar_controller"
+    },
+    {
+      "name": "threshold",
+      "type": "number",
+      "title": {
+        "en": "Threshold (%)",
+        "nl": "Drempel (%)"
+      },
+      "min": 0,
+      "max": 100,
+      "step": 1
+    }
+  ],
+  "titleFormatted": {
+    "en": "PWM > [[threshold]] %",
+    "nl": "PWM > [[threshold]] %"
+  }
+}

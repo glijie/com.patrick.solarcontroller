@@ -1,0 +1,53 @@
+{
+  "id": "advice_is",
+  "title": {
+    "en": "Heating advice is…",
+    "nl": "Verwarmadvies is…"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "title": {
+        "en": "Device",
+        "nl": "Apparaat"
+      },
+      "filter": "driver_id=solar_controller"
+    },
+    {
+      "name": "advice",
+      "type": "dropdown",
+      "title": {
+        "en": "Advice",
+        "nl": "Advies"
+      },
+      "values": [
+        {
+          "id": "gas",
+          "title": {
+            "en": "Gas is better",
+            "nl": "Gas beter"
+          }
+        },
+        {
+          "id": "elec",
+          "title": {
+            "en": "Electricity is better",
+            "nl": "Elek beter"
+          }
+        },
+        {
+          "id": "unknown",
+          "title": {
+            "en": "Unknown",
+            "nl": "Elektriciteit is beter"
+          }
+        }
+      ]
+    }
+  ],
+  "titleFormatted": {
+    "en": "Heating advice is [[advice]]",
+    "nl": "Verwarmadvies is [[advice]]"
+  }
+}

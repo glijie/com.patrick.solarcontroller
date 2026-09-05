@@ -1,0 +1,30 @@
+{
+  "id": "gas_price_below",
+  "title": {
+    "en": "Gas price is below…",
+    "nl": "Gasprijs is lager dan…"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "title": {
+        "en": "Device",
+        "nl": "Apparaat"
+      },
+      "filter": "driver_id=solar_controller"
+    },
+    {
+      "name": "threshold",
+      "type": "number",
+      "title": {
+        "en": "€/m³",
+        "nl": "€/m³"
+      }
+    }
+  ],
+  "titleFormatted": {
+    "en": "Gas price < [[threshold]] €/m³",
+    "nl": "Gasprijs < [[threshold]] €/m³"
+  }
+}

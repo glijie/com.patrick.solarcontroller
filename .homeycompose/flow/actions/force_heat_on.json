@@ -1,0 +1,18 @@
+{
+  "id": "force_heat_on",
+  "title": {
+    "en": "Turn Force Heat on",
+    "nl": "Force Heat inschakelen"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "title": {
+        "en": "Device",
+        "nl": "Apparaat"
+      },
+      "filter": "driver_id=solar_controller"
+    }
+  ]
+}

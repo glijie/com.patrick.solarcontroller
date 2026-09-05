@@ -1,0 +1,18 @@
+{
+  "id": "legionella_cancel",
+  "title": {
+    "en": "Stop Legionella cycle",
+    "nl": "Legionella-cyclus stoppen"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "title": {
+        "en": "Device",
+        "nl": "Apparaat"
+      },
+      "filter": "driver_id=solar_controller"
+    }
+  ]
+}

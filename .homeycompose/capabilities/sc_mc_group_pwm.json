@@ -1,0 +1,19 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Group PWM",
+    "nl": "Groep PWM"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "units": {
+    "en": "%",
+    "nl": "%"
+  },
+  "decimals": 1,
+  "min": 0,
+  "max": 300,
+  "insights": true,
+  "icon": "/assets/icons/pwm.svg"
+}

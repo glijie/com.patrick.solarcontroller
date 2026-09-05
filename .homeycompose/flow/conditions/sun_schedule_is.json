@@ -1,0 +1,60 @@
+{
+  "id": "sun_schedule_is",
+  "title": {
+    "en": "Sun schedule is...",
+    "nl": "Zonregeling is..."
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "title": {
+        "en": "Device",
+        "nl": "Apparaat"
+      },
+      "filter": "driver_id=solar_controller"
+    },
+    {
+      "name": "mode",
+      "type": "dropdown",
+      "title": {
+        "en": "Mode",
+        "nl": "Modus"
+      },
+      "values": [
+        {
+          "id": "always",
+          "title": {
+            "en": "Always",
+            "nl": "Altijd"
+          }
+        },
+        {
+          "id": "manual",
+          "title": {
+            "en": "Manual window",
+            "nl": "Handmatig venster"
+          }
+        },
+        {
+          "id": "cheapest_daylight",
+          "title": {
+            "en": "Cheapest daylight",
+            "nl": "Goedkoopste daglicht"
+          }
+        },
+        {
+          "id": "off",
+          "title": {
+            "en": "Off",
+            "nl": "Uit"
+          }
+        }
+      ]
+    }
+  ],
+  "titleFormatted": {
+    "en": "Sun schedule is [[mode]]",
+    "nl": "Zonregeling is [[mode]]"
+  }
+}

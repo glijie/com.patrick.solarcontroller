@@ -1,0 +1,33 @@
+{
+  "id": "set_max_output_pct",
+  "title": {
+    "en": "Set PWM limit to...",
+    "nl": "Zet PWM-limiet op..."
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "title": {
+        "en": "Device",
+        "nl": "Apparaat"
+      },
+      "filter": "driver_id=solar_controller"
+    },
+    {
+      "name": "percent",
+      "type": "number",
+      "title": {
+        "en": "PWM limit",
+        "nl": "PWM-limiet"
+      },
+      "min": 0,
+      "max": 100,
+      "step": 1
+    }
+  ],
+  "titleFormatted": {
+    "en": "Set PWM limit to [[percent]] %",
+    "nl": "Zet PWM-limiet op [[percent]] %"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "string",
+  "title": {
+    "en": "Control mode",
+    "nl": "Regelmodus"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "insights": false,
+  "icon": "/assets/icons/pwm.svg"
+}

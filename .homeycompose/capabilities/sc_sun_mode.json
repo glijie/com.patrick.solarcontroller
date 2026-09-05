@@ -1,0 +1,49 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Sun schedule",
+    "nl": "Zonregeling"
+  },
+  "getable": true,
+  "setable": true,
+  "uiComponent": "picker",
+  "values": [
+    {
+      "id": "unknown",
+      "title": {
+        "en": "Unknown",
+        "nl": "Onbekend"
+      }
+    },
+    {
+      "id": "always",
+      "title": {
+        "en": "Always",
+        "nl": "Altijd"
+      }
+    },
+    {
+      "id": "manual",
+      "title": {
+        "en": "Manual window",
+        "nl": "Handmatig venster"
+      }
+    },
+    {
+      "id": "cheapest_daylight",
+      "title": {
+        "en": "Cheapest daylight",
+        "nl": "Goedkoopste daglicht"
+      }
+    },
+    {
+      "id": "off",
+      "title": {
+        "en": "Off",
+        "nl": "Uit"
+      }
+    }
+  ],
+  "insights": false,
+  "icon": "/assets/icons/sun.svg"
+}

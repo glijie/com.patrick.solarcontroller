@@ -1,0 +1,18 @@
+{
+  "id": "legionella_run_now",
+  "title": {
+    "en": "Start Legionella cycle now",
+    "nl": "Legionella-cyclus nu starten"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "title": {
+        "en": "Device",
+        "nl": "Apparaat"
+      },
+      "filter": "driver_id=solar_controller"
+    }
+  ]
+}

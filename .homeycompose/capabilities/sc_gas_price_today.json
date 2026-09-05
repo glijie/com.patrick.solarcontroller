@@ -1,0 +1,14 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Gas price today",
+    "nl": "Gasprijs vandaag"
+  },
+  "units": "€/m³",
+  "getable": true,
+  "setable": false,
+  "decimals": 3,
+  "uiComponent": "sensor",
+  "insights": true,
+  "icon": "/assets/icons/gas_price.svg"
+}

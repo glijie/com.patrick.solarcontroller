@@ -1,0 +1,14 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Electricity price now",
+    "nl": "Stroomprijs nu"
+  },
+  "units": "€/kWh",
+  "getable": true,
+  "setable": false,
+  "decimals": 3,
+  "uiComponent": "sensor",
+  "insights": true,
+  "icon": "/assets/icons/elec_price.svg"
+}

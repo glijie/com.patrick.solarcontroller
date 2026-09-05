@@ -1,0 +1,16 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Set PWM limit",
+    "nl": "PWM-limiet instellen"
+  },
+  "decimals": 0,
+  "getable": true,
+  "setable": true,
+  "uiComponent": "slider",
+  "min": 0,
+  "max": 100,
+  "step": 1,
+  "insights": false,
+  "icon": "/assets/icons/safety.svg"
+}

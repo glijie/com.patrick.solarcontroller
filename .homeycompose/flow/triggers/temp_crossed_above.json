@@ -1,0 +1,48 @@
+{
+  "id": "temp_crossed_above",
+  "title": {
+    "en": "Temperature crossed above…",
+    "nl": "Temperatuur boven…"
+  },
+  "hint": {
+    "en": "Triggers when the primary temperature crosses above the threshold (rising).",
+    "nl": "Wordt geactiveerd als de hoofdtemperatuur van onder naar boven de drempel gaat."
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "title": {
+        "en": "Device",
+        "nl": "Apparaat"
+      },
+      "filter": "driver_id=solar_controller"
+    },
+    {
+      "name": "threshold",
+      "type": "number",
+      "title": {
+        "en": "Threshold (°C)",
+        "nl": "Drempel (°C)"
+      },
+      "min": -20,
+      "max": 120,
+      "step": 0.5
+    }
+  ],
+  "tokens": [
+    {
+      "name": "temperature",
+      "type": "number",
+      "title": {
+        "en": "Temperature (°C)",
+        "nl": "Temperatuur (°C)"
+      },
+      "example": 48.5
+    }
+  ],
+  "titleFormatted": {
+    "en": "Temperature above [[threshold]] °C",
+    "nl": "Temperatuur boven [[threshold]] °C"
+  }
+}

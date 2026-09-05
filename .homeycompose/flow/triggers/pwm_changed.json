@@ -1,0 +1,37 @@
+{
+  "id": "pwm_changed",
+  "title": {
+    "en": "PWM changed",
+    "nl": "PWM gewijzigd"
+  },
+  "hint": {
+    "en": "Triggers when PWM value changes.",
+    "nl": "Wordt geactiveerd als PWM-waarde verandert."
+  },
+  "tokens": [
+    {
+      "name": "pwm",
+      "type": "number",
+      "title": {
+        "en": "PWM (%)",
+        "nl": "PWM (%)"
+      },
+      "example": 55
+    }
+  ],
+  "titleFormatted": {
+    "en": "PWM changed",
+    "nl": "PWM gewijzigd"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "title": {
+        "en": "Device",
+        "nl": "Apparaat"
+      },
+      "filter": "driver_id=solar_controller"
+    }
+  ]
+}

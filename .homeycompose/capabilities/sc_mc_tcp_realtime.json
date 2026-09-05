@@ -1,0 +1,12 @@
+{
+  "type": "boolean",
+  "title": {
+    "en": "TCP real-time",
+    "nl": "TCP-realtime"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "insights": false,
+  "icon": "/assets/icons/safety.svg"
+}

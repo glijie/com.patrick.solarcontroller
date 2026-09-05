@@ -1,0 +1,32 @@
+{
+  "id": "elec_price_updated",
+  "title": {
+    "en": "Electricity price updated",
+    "nl": "Stroomprijs bijgewerkt"
+  },
+  "hint": {
+    "en": "Triggers when the electricity price changes.",
+    "nl": "Wordt geactiveerd wanneer de stroomprijs verandert."
+  },
+  "tokens": [
+    {
+      "name": "elec_price_now",
+      "type": "number",
+      "title": {
+        "en": "Electricity price now",
+        "nl": "Stroomprijs nu"
+      }
+    }
+  ],
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "title": {
+        "en": "Device",
+        "nl": "Apparaat"
+      },
+      "filter": "driver_id=solar_controller"
+    }
+  ]
+}

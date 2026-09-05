@@ -1,0 +1,35 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Heating advice",
+    "nl": "Verwarmadvies"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "values": [
+    {
+      "id": "unknown",
+      "title": {
+        "en": "Unknown",
+        "nl": "Onbekend"
+      }
+    },
+    {
+      "id": "gas",
+      "title": {
+        "en": "Gas is better",
+        "nl": "Gas beter"
+      }
+    },
+    {
+      "id": "elec",
+      "title": {
+        "en": "Electricity is better",
+        "nl": "Elektriciteit is beter"
+      }
+    }
+  ],
+  "insights": true,
+  "icon": "/assets/icons/advice.svg"
+}
