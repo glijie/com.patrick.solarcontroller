@@ -11,7 +11,7 @@
   "author": {
     "name": "Patrick"
   },
-  "version": "1.0.1",
+  "version": "1.0.2",
   "compatibility": ">=7.4.0",
   "sdk": 3,
   "category": "energy",
@@ -41,5 +41,9 @@
       "eigenverbruik"
     ]
   },
-  "homepage": "https://github.com/glijie/solar-controller-firmware"
+  "homepage": "https://github.com/glijie/solar-controller-firmware",
+  "support": "https://github.com/glijie/com.patrick.solarcontroller/issues",
+  "bugs": {
+    "url": "https://github.com/glijie/com.patrick.solarcontroller/issues"
+  }
 }

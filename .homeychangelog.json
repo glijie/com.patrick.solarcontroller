@@ -1,4 +1,8 @@
 {
+  "1.0.2": {
+    "en": "Added the official GitHub Issues page for Homey app support and bug reports.",
+    "nl": "Officiële GitHub Issues-pagina toegevoegd voor ondersteuning en foutmeldingen van de Homey-app."
+  },
   "1.0.1": {
     "en": "Small App Store update with a clearer description of the required Solar Controller hardware and an official link to the Solar Controller firmware, installation and hardware documentation.",
     "nl": "Kleine App Store-update met een duidelijkere beschrijving van de benodigde Solar Controller-hardware en een officiële verwijzing naar de firmware-, installatie- en hardwaredocumentatie van het Solar Controller-project."

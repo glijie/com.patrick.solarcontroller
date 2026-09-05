@@ -5,7 +5,7 @@ const Homey = require('homey');
 class SolarControllerApp extends Homey.App {
 
   async onInit() {
-    this.log('Solar Controller app started (v1.0.1)');
+    this.log('Solar Controller app started (v1.0.2)');
 
     this._registerTriggerCards();
     this._registerConditionCards();

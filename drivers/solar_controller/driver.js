@@ -39,7 +39,7 @@ function sanitizeHostInput(value) {
 
 class SolarControllerDriver extends Homey.Driver {
   async onInit() {
-    this.log('SolarControllerDriver init (v1.0.1)');
+    this.log('SolarControllerDriver init (v1.0.2)');
   }
 
   async onPair(session) {

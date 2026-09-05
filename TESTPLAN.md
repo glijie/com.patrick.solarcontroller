@@ -1,6 +1,6 @@
-# Solar Controller Homey v1.0.1 — eindcontroleplan
+# Solar Controller Homey v1.0.2 — eindcontroleplan
 
-Deze versie is de eerste publieke App Store-release op basis van de bevestigde werkende v1.0.1 release-candidate en de eerder publish-gevalideerde technische baseline. Automatische LAN-discovery/mDNS is **bewust niet geïmplementeerd**. Handmatige invoer van IP-adres/hostnaam blijft in deze versie de methode om een controller toe te voegen.
+Deze versie is de eerste publieke App Store-release op basis van de bevestigde werkende v1.0.2 release-candidate en de eerder publish-gevalideerde technische baseline. Automatische LAN-discovery/mDNS is **bewust niet geïmplementeerd**. Handmatige invoer van IP-adres/hostnaam blijft in deze versie de methode om een controller toe te voegen.
 
 ## 1. Voorcontrole op de pc
 
@@ -15,7 +15,7 @@ homey app validate --level publish
 
 ## 2. Upgrade van bestaande v0.7.73
 
-- Start/installeer v1.0.1 via Homey CLI over de bestaande installatie.
+- Start/installeer v1.0.2 via Homey CLI over de bestaande installatie.
 - Bestaande Solar Controllers mogen **niet opnieuw gekoppeld** hoeven worden.
 - Controleer dat naam, Host, bestaande Flows en apparaatidentiteit behouden zijn.
 - Controleer dat eventueel nieuw toegevoegde capabilities vanzelf verschijnen.
@@ -137,6 +137,6 @@ Controleer in de Homey Developer omgeving:
 - compatibiliteit vanaf Homey 7.4.0
 - platform local
 
-## 13. Bewust nog open na v1.0.1
+## 13. Bewust nog open na v1.0.2
 
 Automatische discovery/mDNS. Dit wordt pas als aparte fase onderzocht nadat bovenstaande release-candidate functioneel is goedgekeurd. Tot die tijd is een DHCP-reservering/vast IP per Solar Controller aanbevolen.

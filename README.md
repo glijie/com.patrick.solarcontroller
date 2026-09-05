@@ -1,8 +1,8 @@
-# Solar Controller - Homey App (SDK v3) v1.0.1
+# Solar Controller - Homey App (SDK v3) v1.0.2
 
 Solar Controller connects an ESP32-based Solar Controller to Homey. The ESP32 remains responsible for the actual solar-surplus control logic; Homey adds local monitoring, controls, device-specific Flows and support for multiple controllers.
 
-## v1.0.1 — App Store metadata patch
+## v1.0.2 — Homey support link
 
 This is the first public Homey App Store release of Solar Controller.
 
@@ -21,7 +21,7 @@ Highlights:
 - English and Dutch Store copy and interface translations.
 - Local project validation and smoke tests without external npm dependencies.
 
-Automatic LAN discovery/mDNS is intentionally not part of v1.0.1. Controllers are paired manually by IP address or hostname. A DHCP reservation/fixed IP is therefore recommended.
+Automatic LAN discovery/mDNS is intentionally not part of v1.0.2. Controllers are paired manually by IP address or hostname. A DHCP reservation/fixed IP is therefore recommended.
 
 ## Requirements
 
@@ -29,6 +29,11 @@ Automatic LAN discovery/mDNS is intentionally not part of v1.0.1. Controllers ar
 - Homey and the Solar Controller on the same local network.
 - Homey firmware 7.4.0 or newer.
 - A stable IP address/hostname for the current manual pairing workflow is recommended.
+
+## Support
+
+- Homey app issues and bug reports: https://github.com/glijie/com.patrick.solarcontroller/issues
+- Solar Controller firmware, installation and hardware documentation: https://github.com/glijie/solar-controller-firmware
 
 ## Development / validation
 

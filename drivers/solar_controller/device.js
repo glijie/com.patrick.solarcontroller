@@ -59,7 +59,7 @@ const CONTROL_CAPABILITY_OPTIONS = {
 class SolarControllerDevice extends Homey.Device {
 
   async onInit() {
-    this.log('SolarControllerDevice init (v1.0.1)');
+    this.log('SolarControllerDevice init (v1.0.2)');
 
     // Polling loop helper (timer + overlap protection + generation guard)
     this._poller = new SolarControllerPoller({

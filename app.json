@@ -1,5 +1,4 @@
 {
-  "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.patrick.solarcontroller",
   "name": {
     "en": "Solar Controller",
@@ -12,7 +11,7 @@
   "author": {
     "name": "Patrick"
   },
-  "version": "1.0.1",
+  "version": "1.0.2",
   "compatibility": ">=7.4.0",
   "sdk": 3,
   "category": "energy",
@@ -43,1398 +42,9 @@
     ]
   },
   "homepage": "https://github.com/glijie/solar-controller-firmware",
-  "flow": {
-    "triggers": [
-      {
-        "id": "advice_changed",
-        "title": {
-          "en": "Heating advice changed",
-          "nl": "Verwarmadvies gewijzigd"
-        },
-        "hint": {
-          "en": "Triggers when the heating advice changes.",
-          "nl": "Wordt geactiveerd wanneer het verwarmadvies verandert."
-        },
-        "tokens": [
-          {
-            "name": "advice",
-            "type": "string",
-            "title": {
-              "en": "Advice",
-              "nl": "Advies"
-            }
-          },
-          {
-            "name": "advice_id",
-            "type": "string",
-            "title": {
-              "en": "Advice id",
-              "nl": "Advies id"
-            }
-          },
-          {
-            "name": "elec_price_now",
-            "type": "number",
-            "title": {
-              "en": "Electricity price now",
-              "nl": "Stroomprijs nu"
-            }
-          },
-          {
-            "name": "gas_price_today",
-            "type": "number",
-            "title": {
-              "en": "Gas price today",
-              "nl": "Gasprijs vandaag"
-            }
-          }
-        ],
-        "args": [
-          {
-            "name": "device",
-            "type": "device",
-            "title": {
-              "en": "Device",
-              "nl": "Apparaat"
-            },
-            "filter": "driver_id=solar_controller"
-          }
-        ]
-      },
-      {
-        "id": "control_mode_changed",
-        "title": {
-          "en": "Control mode changed",
-          "nl": "Regelmodus gewijzigd"
-        },
-        "tokens": [
-          {
-            "name": "mode",
-            "type": "string",
-            "title": {
-              "en": "Mode",
-              "nl": "Modus"
-            }
-          }
-        ],
-        "args": [
-          {
-            "name": "device",
-            "type": "device",
-            "title": {
-              "en": "Device",
-              "nl": "Apparaat"
-            },
-            "filter": "driver_id=solar_controller"
-          }
-        ]
-      },
-      {
-        "id": "elec_price_updated",
-        "title": {
-          "en": "Electricity price updated",
-          "nl": "Stroomprijs bijgewerkt"
-        },
-        "hint": {
-          "en": "Triggers when the electricity price changes.",
-          "nl": "Wordt geactiveerd wanneer de stroomprijs verandert."
-        },
-        "tokens": [
-          {
-            "name": "elec_price_now",
-            "type": "number",
-            "title": {
-              "en": "Electricity price now",
-              "nl": "Stroomprijs nu"
-            }
-          }
-        ],
-        "args": [
-          {
-            "name": "device",
-            "type": "device",
-            "title": {
-              "en": "Device",
-              "nl": "Apparaat"
-            },
-            "filter": "driver_id=solar_controller"
-          }
-        ]
-      },
-      {
-        "id": "force_heat_off",
-        "title": {
-          "en": "Force Heat turned off",
-          "nl": "Force Heat uitgeschakeld"
-        },
-        "args": [
-          {
-            "name": "device",
-            "type": "device",
-            "title": {
-              "en": "Device",
-              "nl": "Apparaat"
-            },
-            "filter": "driver_id=solar_controller"
-          }
-        ]
-      },
-      {
-        "id": "force_heat_on",
-        "title": {
-          "en": "Force Heat turned on",
-          "nl": "Force Heat ingeschakeld"
-        },
-        "args": [
-          {
-            "name": "device",
-            "type": "device",
-            "title": {
-              "en": "Device",
-              "nl": "Apparaat"
-            },
-            "filter": "driver_id=solar_controller"
-          }
-        ]
-      },
-      {
-        "id": "gas_price_updated",
-        "title": {
-          "en": "Gas price updated",
-          "nl": "Gasprijs bijgewerkt"
-        },
-        "hint": {
-          "en": "Triggers when the gas price changes.",
-          "nl": "Wordt geactiveerd wanneer de gasprijs verandert."
-        },
-        "tokens": [
-          {
-            "name": "gas_price_today",
-            "type": "number",
-            "title": {
-              "en": "Gas price today",
-              "nl": "Gasprijs vandaag"
-            }
-          }
-        ],
-        "args": [
-          {
-            "name": "device",
-            "type": "device",
-            "title": {
-              "en": "Device",
-              "nl": "Apparaat"
-            },
-            "filter": "driver_id=solar_controller"
-          }
-        ]
-      },
-      {
-        "id": "legionella_turned_off",
-        "title": {
-          "en": "Legionella cycle stopped",
-          "nl": "Legionella-cyclus gestopt"
-        },
-        "hint": {
-          "en": "Triggers when Legionella becomes inactive.",
-          "nl": "Wordt geactiveerd wanneer Legionella stopt."
-        },
-        "tokens": [
-          {
-            "name": "active",
-            "type": "boolean",
-            "title": {
-              "en": "Active",
-              "nl": "Actief"
-            }
-          },
-          {
-            "name": "state",
-            "type": "string",
-            "title": {
-              "en": "State",
-              "nl": "Status"
-            }
-          }
-        ],
-        "args": [
-          {
-            "name": "device",
-            "type": "device",
-            "title": {
-              "en": "Device",
-              "nl": "Apparaat"
-            },
-            "filter": "driver_id=solar_controller"
-          }
-        ]
-      },
-      {
-        "id": "legionella_turned_on",
-        "title": {
-          "en": "Legionella cycle started",
-          "nl": "Legionella-cyclus gestart"
-        },
-        "hint": {
-          "en": "Triggers when Legionella becomes active.",
-          "nl": "Wordt geactiveerd wanneer Legionella actief wordt."
-        },
-        "tokens": [
-          {
-            "name": "active",
-            "type": "boolean",
-            "title": {
-              "en": "Active",
-              "nl": "Actief"
-            }
-          },
-          {
-            "name": "state",
-            "type": "string",
-            "title": {
-              "en": "State",
-              "nl": "Status"
-            }
-          }
-        ],
-        "args": [
-          {
-            "name": "device",
-            "type": "device",
-            "title": {
-              "en": "Device",
-              "nl": "Apparaat"
-            },
-            "filter": "driver_id=solar_controller"
-          }
-        ]
-      },
-      {
-        "id": "mc_fallback_activated",
-        "title": {
-          "en": "Multi Controller fallback activated",
-          "nl": "Multi Controller-fallback geactiveerd"
-        },
-        "args": [
-          {
-            "name": "device",
-            "type": "device",
-            "title": {
-              "en": "Device",
-              "nl": "Apparaat"
-            },
-            "filter": "driver_id=solar_controller"
-          }
-        ]
-      },
-      {
-        "id": "mc_fallback_cleared",
-        "title": {
-          "en": "Multi Controller fallback cleared",
-          "nl": "Multi Controller-fallback beëindigd"
-        },
-        "args": [
-          {
-            "name": "device",
-            "type": "device",
-            "title": {
-              "en": "Device",
-              "nl": "Apparaat"
-            },
-            "filter": "driver_id=solar_controller"
-          }
-        ]
-      },
-      {
-        "id": "mc_role_changed",
-        "title": {
-          "en": "Controller role changed",
-          "nl": "Controllerrol gewijzigd"
-        },
-        "tokens": [
-          {
-            "name": "role",
-            "type": "string",
-            "title": {
-              "en": "Role",
-              "nl": "Rol"
-            }
-          }
-        ],
-        "args": [
-          {
-            "name": "device",
-            "type": "device",
-            "title": {
-              "en": "Device",
-              "nl": "Apparaat"
-            },
-            "filter": "driver_id=solar_controller"
-          }
-        ]
-      },
-      {
-        "id": "power_crossed_above",
-        "title": {
-          "en": "Power crossed above…",
-          "nl": "Vermogen boven…"
-        },
-        "hint": {
-          "en": "Triggers when power crosses above the threshold (rising).",
-          "nl": "Wordt geactiveerd als het vermogen van onder naar boven de drempel gaat."
-        },
-        "args": [
-          {
-            "name": "device",
-            "type": "device",
-            "title": {
-              "en": "Device",
-              "nl": "Apparaat"
-            },
-            "filter": "driver_id=solar_controller"
-          },
-          {
-            "name": "threshold",
-            "type": "number",
-            "title": {
-              "en": "Threshold (W)",
-              "nl": "Drempel (W)"
-            },
-            "min": 0,
-            "max": 30000,
-            "step": 10
-          }
-        ],
-        "tokens": [
-          {
-            "name": "power",
-            "type": "number",
-            "title": {
-              "en": "Power (W)",
-              "nl": "Vermogen (W)"
-            },
-            "example": 1234
-          }
-        ],
-        "titleFormatted": {
-          "en": "Power above [[threshold]] W",
-          "nl": "Vermogen boven [[threshold]] W"
-        }
-      },
-      {
-        "id": "pwm_changed",
-        "title": {
-          "en": "PWM changed",
-          "nl": "PWM gewijzigd"
-        },
-        "hint": {
-          "en": "Triggers when PWM value changes.",
-          "nl": "Wordt geactiveerd als PWM-waarde verandert."
-        },
-        "tokens": [
-          {
-            "name": "pwm",
-            "type": "number",
-            "title": {
-              "en": "PWM (%)",
-              "nl": "PWM (%)"
-            },
-            "example": 55
-          }
-        ],
-        "titleFormatted": {
-          "en": "PWM changed",
-          "nl": "PWM gewijzigd"
-        },
-        "args": [
-          {
-            "name": "device",
-            "type": "device",
-            "title": {
-              "en": "Device",
-              "nl": "Apparaat"
-            },
-            "filter": "driver_id=solar_controller"
-          }
-        ]
-      },
-      {
-        "id": "relay_turned_off",
-        "title": {
-          "en": "Relay turned off",
-          "nl": "Relais uitgeschakeld"
-        },
-        "args": [
-          {
-            "name": "device",
-            "type": "device",
-            "title": {
-              "en": "Device",
-              "nl": "Apparaat"
-            },
-            "filter": "driver_id=solar_controller"
-          }
-        ]
-      },
-      {
-        "id": "relay_turned_on",
-        "title": {
-          "en": "Relay turned on",
-          "nl": "Relais ingeschakeld"
-        },
-        "args": [
-          {
-            "name": "device",
-            "type": "device",
-            "title": {
-              "en": "Device",
-              "nl": "Apparaat"
-            },
-            "filter": "driver_id=solar_controller"
-          }
-        ]
-      },
-      {
-        "id": "sun_mode_changed",
-        "title": {
-          "en": "Sun schedule changed",
-          "nl": "Zonregeling gewijzigd"
-        },
-        "tokens": [
-          {
-            "name": "mode",
-            "type": "string",
-            "title": {
-              "en": "Mode",
-              "nl": "Modus"
-            }
-          }
-        ],
-        "args": [
-          {
-            "name": "device",
-            "type": "device",
-            "title": {
-              "en": "Device",
-              "nl": "Apparaat"
-            },
-            "filter": "driver_id=solar_controller"
-          }
-        ]
-      },
-      {
-        "id": "temp_crossed_above",
-        "title": {
-          "en": "Temperature crossed above…",
-          "nl": "Temperatuur boven…"
-        },
-        "hint": {
-          "en": "Triggers when the primary temperature crosses above the threshold (rising).",
-          "nl": "Wordt geactiveerd als de hoofdtemperatuur van onder naar boven de drempel gaat."
-        },
-        "args": [
-          {
-            "name": "device",
-            "type": "device",
-            "title": {
-              "en": "Device",
-              "nl": "Apparaat"
-            },
-            "filter": "driver_id=solar_controller"
-          },
-          {
-            "name": "threshold",
-            "type": "number",
-            "title": {
-              "en": "Threshold (°C)",
-              "nl": "Drempel (°C)"
-            },
-            "min": -20,
-            "max": 120,
-            "step": 0.5
-          }
-        ],
-        "tokens": [
-          {
-            "name": "temperature",
-            "type": "number",
-            "title": {
-              "en": "Temperature (°C)",
-              "nl": "Temperatuur (°C)"
-            },
-            "example": 48.5
-          }
-        ],
-        "titleFormatted": {
-          "en": "Temperature above [[threshold]] °C",
-          "nl": "Temperatuur boven [[threshold]] °C"
-        }
-      },
-      {
-        "id": "temp_gate_blocked",
-        "title": {
-          "en": "Temperature gate started blocking",
-          "nl": "Temperatuurvrijgave is gaan blokkeren"
-        },
-        "args": [
-          {
-            "name": "device",
-            "type": "device",
-            "title": {
-              "en": "Device",
-              "nl": "Apparaat"
-            },
-            "filter": "driver_id=solar_controller"
-          }
-        ]
-      },
-      {
-        "id": "temp_gate_released",
-        "title": {
-          "en": "Temperature gate released",
-          "nl": "Temperatuurvrijgave vrijgegeven"
-        },
-        "args": [
-          {
-            "name": "device",
-            "type": "device",
-            "title": {
-              "en": "Device",
-              "nl": "Apparaat"
-            },
-            "filter": "driver_id=solar_controller"
-          }
-        ]
-      },
-      {
-        "id": "temp2_changed",
-        "title": {
-          "en": "Temperature 2 changed",
-          "nl": "Temperatuur 2 gewijzigd"
-        },
-        "hint": {
-          "en": "Triggers when Temperature 2 changes.",
-          "nl": "Wordt geactiveerd als Temperatuur 2 verandert."
-        },
-        "tokens": [
-          {
-            "name": "temperature",
-            "type": "number",
-            "title": {
-              "en": "Temperature (°C)",
-              "nl": "Temperatuur (°C)"
-            },
-            "example": 48.5
-          }
-        ],
-        "titleFormatted": {
-          "en": "Temperature 2 changed",
-          "nl": "Temperatuur 2 gewijzigd"
-        },
-        "args": [
-          {
-            "name": "device",
-            "type": "device",
-            "title": {
-              "en": "Device",
-              "nl": "Apparaat"
-            },
-            "filter": "driver_id=solar_controller"
-          }
-        ]
-      },
-      {
-        "id": "temp3_changed",
-        "title": {
-          "en": "Temperature 3 changed",
-          "nl": "Temperatuur 3 gewijzigd"
-        },
-        "hint": {
-          "en": "Triggers when Temperature 3 changes.",
-          "nl": "Wordt geactiveerd als Temperatuur 3 verandert."
-        },
-        "tokens": [
-          {
-            "name": "temperature",
-            "type": "number",
-            "title": {
-              "en": "Temperature (°C)",
-              "nl": "Temperatuur (°C)"
-            },
-            "example": 48.5
-          }
-        ],
-        "titleFormatted": {
-          "en": "Temperature 3 changed",
-          "nl": "Temperatuur 3 gewijzigd"
-        },
-        "args": [
-          {
-            "name": "device",
-            "type": "device",
-            "title": {
-              "en": "Device",
-              "nl": "Apparaat"
-            },
-            "filter": "driver_id=solar_controller"
-          }
-        ]
-      },
-      {
-        "id": "temp4_changed",
-        "title": {
-          "en": "Temperature 4 changed",
-          "nl": "Temperatuur 4 gewijzigd"
-        },
-        "hint": {
-          "en": "Triggers when Temperature 4 changes.",
-          "nl": "Wordt geactiveerd als Temperatuur 4 verandert."
-        },
-        "tokens": [
-          {
-            "name": "temperature",
-            "type": "number",
-            "title": {
-              "en": "Temperature (°C)",
-              "nl": "Temperatuur (°C)"
-            },
-            "example": 48.5
-          }
-        ],
-        "titleFormatted": {
-          "en": "Temperature 4 changed",
-          "nl": "Temperatuur 4 gewijzigd"
-        },
-        "args": [
-          {
-            "name": "device",
-            "type": "device",
-            "title": {
-              "en": "Device",
-              "nl": "Apparaat"
-            },
-            "filter": "driver_id=solar_controller"
-          }
-        ]
-      }
-    ],
-    "conditions": [
-      {
-        "id": "advice_is",
-        "title": {
-          "en": "Heating advice is…",
-          "nl": "Verwarmadvies is…"
-        },
-        "args": [
-          {
-            "name": "device",
-            "type": "device",
-            "title": {
-              "en": "Device",
-              "nl": "Apparaat"
-            },
-            "filter": "driver_id=solar_controller"
-          },
-          {
-            "name": "advice",
-            "type": "dropdown",
-            "title": {
-              "en": "Advice",
-              "nl": "Advies"
-            },
-            "values": [
-              {
-                "id": "gas",
-                "title": {
-                  "en": "Gas is better",
-                  "nl": "Gas beter"
-                }
-              },
-              {
-                "id": "elec",
-                "title": {
-                  "en": "Electricity is better",
-                  "nl": "Elek beter"
-                }
-              },
-              {
-                "id": "unknown",
-                "title": {
-                  "en": "Unknown",
-                  "nl": "Elektriciteit is beter"
-                }
-              }
-            ]
-          }
-        ],
-        "titleFormatted": {
-          "en": "Heating advice is [[advice]]",
-          "nl": "Verwarmadvies is [[advice]]"
-        }
-      },
-      {
-        "id": "control_mode_is",
-        "title": {
-          "en": "Control mode is...",
-          "nl": "Regelmodus is..."
-        },
-        "args": [
-          {
-            "name": "device",
-            "type": "device",
-            "title": {
-              "en": "Device",
-              "nl": "Apparaat"
-            },
-            "filter": "driver_id=solar_controller"
-          },
-          {
-            "name": "mode",
-            "type": "dropdown",
-            "title": {
-              "en": "Mode",
-              "nl": "Modus"
-            },
-            "values": [
-              {
-                "id": "NORMAL",
-                "title": {
-                  "en": "Normal",
-                  "nl": "Normaal"
-                }
-              },
-              {
-                "id": "NORMAL_BLOCKED",
-                "title": {
-                  "en": "Normal blocked",
-                  "nl": "Normaal geblokkeerd"
-                }
-              },
-              {
-                "id": "NORMAL_OFF",
-                "title": {
-                  "en": "Normal off",
-                  "nl": "Normaal uit"
-                }
-              },
-              {
-                "id": "FORCE_HEAT",
-                "title": {
-                  "en": "Force heat",
-                  "nl": "Force heat"
-                }
-              },
-              {
-                "id": "PRICE_BOOST",
-                "title": {
-                  "en": "Price boost",
-                  "nl": "Prijs boost"
-                }
-              },
-              {
-                "id": "LEGIONELLA",
-                "title": {
-                  "en": "Legionella",
-                  "nl": "Legionella"
-                }
-              }
-            ]
-          }
-        ],
-        "titleFormatted": {
-          "en": "Control mode is [[mode]]",
-          "nl": "Regelmodus is [[mode]]"
-        }
-      },
-      {
-        "id": "elec_price_below",
-        "title": {
-          "en": "Electricity price is below…",
-          "nl": "Stroomprijs is lager dan…"
-        },
-        "args": [
-          {
-            "name": "device",
-            "type": "device",
-            "title": {
-              "en": "Device",
-              "nl": "Apparaat"
-            },
-            "filter": "driver_id=solar_controller"
-          },
-          {
-            "name": "threshold",
-            "type": "number",
-            "title": {
-              "en": "€/kWh",
-              "nl": "€/kWh"
-            }
-          }
-        ],
-        "titleFormatted": {
-          "en": "Electricity price < [[threshold]] €/kWh",
-          "nl": "Stroomprijs < [[threshold]] €/kWh"
-        }
-      },
-      {
-        "id": "gas_price_below",
-        "title": {
-          "en": "Gas price is below…",
-          "nl": "Gasprijs is lager dan…"
-        },
-        "args": [
-          {
-            "name": "device",
-            "type": "device",
-            "title": {
-              "en": "Device",
-              "nl": "Apparaat"
-            },
-            "filter": "driver_id=solar_controller"
-          },
-          {
-            "name": "threshold",
-            "type": "number",
-            "title": {
-              "en": "€/m³",
-              "nl": "€/m³"
-            }
-          }
-        ],
-        "titleFormatted": {
-          "en": "Gas price < [[threshold]] €/m³",
-          "nl": "Gasprijs < [[threshold]] €/m³"
-        }
-      },
-      {
-        "id": "legionella_is_active",
-        "title": {
-          "en": "Legionella is active",
-          "nl": "Legionella is actief"
-        },
-        "hint": {
-          "en": "Returns true when Legionella is active.",
-          "nl": "Waar als Legionella actief is."
-        },
-        "args": [
-          {
-            "name": "device",
-            "type": "device",
-            "title": {
-              "en": "Device",
-              "nl": "Apparaat"
-            },
-            "filter": "driver_id=solar_controller"
-          }
-        ],
-        "titleFormatted": {
-          "en": "Legionella is active",
-          "nl": "Legionella is actief"
-        }
-      },
-      {
-        "id": "mc_fallback_is_active",
-        "title": {
-          "en": "Multi Controller fallback is active",
-          "nl": "Multi Controller-fallback is actief"
-        },
-        "args": [
-          {
-            "name": "device",
-            "type": "device",
-            "title": {
-              "en": "Device",
-              "nl": "Apparaat"
-            },
-            "filter": "driver_id=solar_controller"
-          }
-        ]
-      },
-      {
-        "id": "mc_role_is",
-        "title": {
-          "en": "Controller role is…",
-          "nl": "Controllerrol is…"
-        },
-        "args": [
-          {
-            "name": "device",
-            "type": "device",
-            "title": {
-              "en": "Device",
-              "nl": "Apparaat"
-            },
-            "filter": "driver_id=solar_controller"
-          },
-          {
-            "name": "role",
-            "type": "dropdown",
-            "title": {
-              "en": "Role",
-              "nl": "Rol"
-            },
-            "values": [
-              {
-                "id": "standalone",
-                "title": {
-                  "en": "Standalone",
-                  "nl": "Standalone"
-                }
-              },
-              {
-                "id": "master",
-                "title": {
-                  "en": "Master",
-                  "nl": "Master"
-                }
-              },
-              {
-                "id": "slave",
-                "title": {
-                  "en": "Slave",
-                  "nl": "Slave"
-                }
-              }
-            ]
-          }
-        ],
-        "titleFormatted": {
-          "en": "Controller role is [[role]]",
-          "nl": "Controllerrol is [[role]]"
-        }
-      },
-      {
-        "id": "power_above",
-        "title": {
-          "en": "Power is above…",
-          "nl": "Vermogen is boven…"
-        },
-        "args": [
-          {
-            "name": "device",
-            "type": "device",
-            "title": {
-              "en": "Device",
-              "nl": "Apparaat"
-            },
-            "filter": "driver_id=solar_controller"
-          },
-          {
-            "name": "threshold",
-            "type": "number",
-            "title": {
-              "en": "Threshold (W)",
-              "nl": "Drempel (W)"
-            },
-            "min": 0,
-            "max": 30000,
-            "step": 10
-          }
-        ],
-        "titleFormatted": {
-          "en": "Power > [[threshold]] W",
-          "nl": "Vermogen > [[threshold]] W"
-        }
-      },
-      {
-        "id": "pwm_above",
-        "title": {
-          "en": "PWM is above…",
-          "nl": "PWM is boven…"
-        },
-        "args": [
-          {
-            "name": "device",
-            "type": "device",
-            "title": {
-              "en": "Device",
-              "nl": "Apparaat"
-            },
-            "filter": "driver_id=solar_controller"
-          },
-          {
-            "name": "threshold",
-            "type": "number",
-            "title": {
-              "en": "Threshold (%)",
-              "nl": "Drempel (%)"
-            },
-            "min": 0,
-            "max": 100,
-            "step": 1
-          }
-        ],
-        "titleFormatted": {
-          "en": "PWM > [[threshold]] %",
-          "nl": "PWM > [[threshold]] %"
-        }
-      },
-      {
-        "id": "relay_is_on",
-        "title": {
-          "en": "Relay is on",
-          "nl": "Relais is aan"
-        },
-        "args": [
-          {
-            "name": "device",
-            "type": "device",
-            "title": {
-              "en": "Device",
-              "nl": "Apparaat"
-            },
-            "filter": "driver_id=solar_controller"
-          }
-        ]
-      },
-      {
-        "id": "sun_schedule_is",
-        "title": {
-          "en": "Sun schedule is...",
-          "nl": "Zonregeling is..."
-        },
-        "args": [
-          {
-            "name": "device",
-            "type": "device",
-            "title": {
-              "en": "Device",
-              "nl": "Apparaat"
-            },
-            "filter": "driver_id=solar_controller"
-          },
-          {
-            "name": "mode",
-            "type": "dropdown",
-            "title": {
-              "en": "Mode",
-              "nl": "Modus"
-            },
-            "values": [
-              {
-                "id": "always",
-                "title": {
-                  "en": "Always",
-                  "nl": "Altijd"
-                }
-              },
-              {
-                "id": "manual",
-                "title": {
-                  "en": "Manual window",
-                  "nl": "Handmatig venster"
-                }
-              },
-              {
-                "id": "cheapest_daylight",
-                "title": {
-                  "en": "Cheapest daylight",
-                  "nl": "Goedkoopste daglicht"
-                }
-              },
-              {
-                "id": "off",
-                "title": {
-                  "en": "Off",
-                  "nl": "Uit"
-                }
-              }
-            ]
-          }
-        ],
-        "titleFormatted": {
-          "en": "Sun schedule is [[mode]]",
-          "nl": "Zonregeling is [[mode]]"
-        }
-      },
-      {
-        "id": "temp_above",
-        "title": {
-          "en": "Temperature is above…",
-          "nl": "Temperatuur is boven…"
-        },
-        "args": [
-          {
-            "name": "device",
-            "type": "device",
-            "title": {
-              "en": "Device",
-              "nl": "Apparaat"
-            },
-            "filter": "driver_id=solar_controller"
-          },
-          {
-            "name": "threshold",
-            "type": "number",
-            "title": {
-              "en": "Threshold (°C)",
-              "nl": "Drempel (°C)"
-            },
-            "min": -20,
-            "max": 120,
-            "step": 0.5
-          }
-        ],
-        "titleFormatted": {
-          "en": "Temperature > [[threshold]] °C",
-          "nl": "Temperatuur > [[threshold]] °C"
-        }
-      },
-      {
-        "id": "temp_gate_is_blocked",
-        "title": {
-          "en": "Temperature gate is blocking",
-          "nl": "Temperatuurvrijgave blokkeert"
-        },
-        "args": [
-          {
-            "name": "device",
-            "type": "device",
-            "title": {
-              "en": "Device",
-              "nl": "Apparaat"
-            },
-            "filter": "driver_id=solar_controller"
-          }
-        ]
-      }
-    ],
-    "actions": [
-      {
-        "id": "force_heat_off",
-        "title": {
-          "en": "Turn Force Heat off",
-          "nl": "Force Heat uitschakelen"
-        },
-        "args": [
-          {
-            "name": "device",
-            "type": "device",
-            "title": {
-              "en": "Device",
-              "nl": "Apparaat"
-            },
-            "filter": "driver_id=solar_controller"
-          }
-        ]
-      },
-      {
-        "id": "force_heat_on",
-        "title": {
-          "en": "Turn Force Heat on",
-          "nl": "Force Heat inschakelen"
-        },
-        "args": [
-          {
-            "name": "device",
-            "type": "device",
-            "title": {
-              "en": "Device",
-              "nl": "Apparaat"
-            },
-            "filter": "driver_id=solar_controller"
-          }
-        ]
-      },
-      {
-        "id": "legionella_cancel",
-        "title": {
-          "en": "Stop Legionella cycle",
-          "nl": "Legionella-cyclus stoppen"
-        },
-        "args": [
-          {
-            "name": "device",
-            "type": "device",
-            "title": {
-              "en": "Device",
-              "nl": "Apparaat"
-            },
-            "filter": "driver_id=solar_controller"
-          }
-        ]
-      },
-      {
-        "id": "legionella_run_now",
-        "title": {
-          "en": "Start Legionella cycle now",
-          "nl": "Legionella-cyclus nu starten"
-        },
-        "args": [
-          {
-            "name": "device",
-            "type": "device",
-            "title": {
-              "en": "Device",
-              "nl": "Apparaat"
-            },
-            "filter": "driver_id=solar_controller"
-          }
-        ]
-      },
-      {
-        "id": "relay_off",
-        "title": {
-          "en": "Turn relay off",
-          "nl": "Relais uitschakelen"
-        },
-        "args": [
-          {
-            "name": "device",
-            "type": "device",
-            "title": {
-              "en": "Device",
-              "nl": "Apparaat"
-            },
-            "filter": "driver_id=solar_controller"
-          }
-        ]
-      },
-      {
-        "id": "relay_on",
-        "title": {
-          "en": "Turn relay on",
-          "nl": "Relais inschakelen"
-        },
-        "args": [
-          {
-            "name": "device",
-            "type": "device",
-            "title": {
-              "en": "Device",
-              "nl": "Apparaat"
-            },
-            "filter": "driver_id=solar_controller"
-          }
-        ]
-      },
-      {
-        "id": "set_max_output_pct",
-        "title": {
-          "en": "Set PWM limit to...",
-          "nl": "Zet PWM-limiet op..."
-        },
-        "args": [
-          {
-            "name": "device",
-            "type": "device",
-            "title": {
-              "en": "Device",
-              "nl": "Apparaat"
-            },
-            "filter": "driver_id=solar_controller"
-          },
-          {
-            "name": "percent",
-            "type": "number",
-            "title": {
-              "en": "PWM limit",
-              "nl": "PWM-limiet"
-            },
-            "min": 0,
-            "max": 100,
-            "step": 1
-          }
-        ],
-        "titleFormatted": {
-          "en": "Set PWM limit to [[percent]] %",
-          "nl": "Zet PWM-limiet op [[percent]] %"
-        }
-      },
-      {
-        "id": "set_pwm_percent",
-        "title": {
-          "en": "Set PWM to…",
-          "nl": "Zet PWM op…"
-        },
-        "args": [
-          {
-            "name": "device",
-            "type": "device",
-            "title": {
-              "en": "Device",
-              "nl": "Apparaat"
-            },
-            "filter": "driver_id=solar_controller"
-          },
-          {
-            "name": "percent",
-            "type": "number",
-            "title": {
-              "en": "PWM (%)",
-              "nl": "PWM (%)"
-            },
-            "min": 0,
-            "max": 100,
-            "step": 1
-          }
-        ],
-        "titleFormatted": {
-          "en": "Set PWM to [[percent]] %",
-          "nl": "Zet PWM op [[percent]] %"
-        }
-      },
-      {
-        "id": "set_sun_schedule_mode",
-        "title": {
-          "en": "Set sun schedule to...",
-          "nl": "Zet zonregeling op..."
-        },
-        "args": [
-          {
-            "name": "device",
-            "type": "device",
-            "title": {
-              "en": "Device",
-              "nl": "Apparaat"
-            },
-            "filter": "driver_id=solar_controller"
-          },
-          {
-            "name": "mode",
-            "type": "dropdown",
-            "title": {
-              "en": "Mode",
-              "nl": "Modus"
-            },
-            "values": [
-              {
-                "id": "always",
-                "title": {
-                  "en": "Always",
-                  "nl": "Altijd"
-                }
-              },
-              {
-                "id": "manual",
-                "title": {
-                  "en": "Manual window",
-                  "nl": "Handmatig venster"
-                }
-              },
-              {
-                "id": "cheapest_daylight",
-                "title": {
-                  "en": "Cheapest daylight",
-                  "nl": "Goedkoopste daglicht"
-                }
-              },
-              {
-                "id": "off",
-                "title": {
-                  "en": "Off",
-                  "nl": "Uit"
-                }
-              }
-            ]
-          }
-        ],
-        "titleFormatted": {
-          "en": "Set sun schedule to [[mode]]",
-          "nl": "Zet zonregeling op [[mode]]"
-        }
-      }
-    ]
+  "support": "https://github.com/glijie/com.patrick.solarcontroller/issues",
+  "bugs": {
+    "url": "https://github.com/glijie/com.patrick.solarcontroller/issues"
   },
   "drivers": [
     {
@@ -1910,9 +520,150 @@
       "connectivity": [
         "lan"
       ],
-      "id": "solar_controller"
+      "id": "solar_controller",
+      "icon": "/drivers/solar_controller/assets/icon.svg"
     }
   ],
+  "flow": {
+    "triggers": [
+      {
+        "id": "advice_changed"
+      },
+      {
+        "id": "control_mode_changed"
+      },
+      {
+        "id": "elec_price_updated"
+      },
+      {
+        "id": "force_heat_off"
+      },
+      {
+        "id": "force_heat_on"
+      },
+      {
+        "id": "gas_price_updated"
+      },
+      {
+        "id": "legionella_turned_off"
+      },
+      {
+        "id": "legionella_turned_on"
+      },
+      {
+        "id": "mc_fallback_activated"
+      },
+      {
+        "id": "mc_fallback_cleared"
+      },
+      {
+        "id": "mc_role_changed"
+      },
+      {
+        "id": "power_crossed_above"
+      },
+      {
+        "id": "pwm_changed"
+      },
+      {
+        "id": "relay_turned_off"
+      },
+      {
+        "id": "relay_turned_on"
+      },
+      {
+        "id": "sun_mode_changed"
+      },
+      {
+        "id": "temp_crossed_above"
+      },
+      {
+        "id": "temp_gate_blocked"
+      },
+      {
+        "id": "temp_gate_released"
+      },
+      {
+        "id": "temp2_changed"
+      },
+      {
+        "id": "temp3_changed"
+      },
+      {
+        "id": "temp4_changed"
+      }
+    ],
+    "conditions": [
+      {
+        "id": "advice_is"
+      },
+      {
+        "id": "control_mode_is"
+      },
+      {
+        "id": "elec_price_below"
+      },
+      {
+        "id": "gas_price_below"
+      },
+      {
+        "id": "legionella_is_active"
+      },
+      {
+        "id": "mc_fallback_is_active"
+      },
+      {
+        "id": "mc_role_is"
+      },
+      {
+        "id": "power_above"
+      },
+      {
+        "id": "pwm_above"
+      },
+      {
+        "id": "relay_is_on"
+      },
+      {
+        "id": "sun_schedule_is"
+      },
+      {
+        "id": "temp_above"
+      },
+      {
+        "id": "temp_gate_is_blocked"
+      }
+    ],
+    "actions": [
+      {
+        "id": "force_heat_off"
+      },
+      {
+        "id": "force_heat_on"
+      },
+      {
+        "id": "legionella_cancel"
+      },
+      {
+        "id": "legionella_run_now"
+      },
+      {
+        "id": "relay_off"
+      },
+      {
+        "id": "relay_on"
+      },
+      {
+        "id": "set_max_output_pct"
+      },
+      {
+        "id": "set_pwm_percent"
+      },
+      {
+        "id": "set_sun_schedule_mode"
+      }
+    ]
+  },
   "capabilities": {
     "sc_advice": {
       "type": "enum",
@@ -2103,6 +854,22 @@
       "insights": false,
       "icon": "/assets/icons/legionella.svg"
     },
+    "sc_max_out_pct_control": {
+      "type": "number",
+      "title": {
+        "en": "Set PWM limit",
+        "nl": "PWM-limiet instellen"
+      },
+      "decimals": 0,
+      "getable": true,
+      "setable": true,
+      "uiComponent": "slider",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "insights": false,
+      "icon": "/assets/icons/safety.svg"
+    },
     "sc_max_out_pct": {
       "type": "number",
       "title": {
@@ -2118,22 +885,6 @@
       "setable": false,
       "uiComponent": "sensor",
       "insights": true,
-      "icon": "/assets/icons/safety.svg"
-    },
-    "sc_max_out_pct_control": {
-      "type": "number",
-      "title": {
-        "en": "Set PWM limit",
-        "nl": "PWM-limiet instellen"
-      },
-      "decimals": 0,
-      "getable": true,
-      "setable": true,
-      "uiComponent": "slider",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "insights": false,
       "icon": "/assets/icons/safety.svg"
     },
     "sc_mc_fallback_active": {
