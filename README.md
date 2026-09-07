@@ -1,76 +1,110 @@
-# Solar Controller - Homey App (SDK v3) v1.1.0 Development
+# Solar Controller - Homey App
 
-Solar Controller connects an ESP32-based Solar Controller to Homey. The ESP32 remains responsible for the actual solar-surplus control logic; Homey adds local monitoring, controls, device-specific Flows and support for multiple controllers.
+![Solar Controller Homey App](store_assets/01_solar_controller_hero.png)
 
-## v1.1.0 — Certification update in development
+Homey integration for the ESP32-based **Solar Controller**.
 
-This is the first public Homey App Store release of Solar Controller.
+The Solar Controller itself remains responsible for the actual solar-surplus control logic.  
+The Homey app adds local monitoring, control, device-specific Flow cards and support for multiple Solar Controllers in one Homey installation.
 
-Highlights:
+## Features
 
-- Local communication with the ESP32 Solar Controller over the home network.
-- Multiple Solar Controllers can be added as separate Homey devices.
-- Manual pairing asks for an IP address or hostname and verifies the connection before the device is created.
-- Stable Homey device identity remains independent of the configured IP/hostname.
-- Live Solar Controller status, power, PWM, temperatures, energy prices, control modes and multi-controller state where supported by the ESP firmware.
-- Homey Flow triggers, conditions and actions for Solar Controller automation.
-- Correct threshold-crossing triggers for power and primary temperature.
-- Force Heat, Legionella, relay, sun schedule and multi-controller Flow integration.
-- Connection recovery and unavailable-state handling.
-- Separate Homey app and device artwork using the Solar Controller visual identity.
-- English and Dutch Store copy and interface translations.
-- Local project validation and smoke tests without external npm dependencies.
-
-Automatic LAN discovery/mDNS is not yet part of this v1.1.0 development build. It will be added in the dedicated discovery phase for the next certification submission; until then controllers are paired manually by IP address or hostname.
+- Local communication with the ESP32 Solar Controller over your home network
+- Add multiple Solar Controllers as separate Homey devices
+- Manual pairing using an IP address or hostname
+- Live Solar Controller status in Homey, including:
+  - Power
+  - PWM output
+  - Temperatures
+  - Energy prices
+  - Control mode
+  - Solar control status
+  - Relay status
+  - Legionella status
+  - Multi Controller status
+- Homey Flow triggers, conditions and actions
+- Control of supported Solar Controller functions from Homey
+- Support for additional temperature sensors when available
+- Separate Homey device identity for every connected Solar Controller
+- English and Dutch Homey interface translations
 
 ## Requirements
 
-- A configured ESP32 running compatible Solar Controller firmware.
-- Homey and the Solar Controller on the same local network.
-- Homey firmware 7.4.0 or newer.
-- A stable IP address/hostname for the current manual pairing workflow is recommended.
+To use this Homey app you need:
+
+- A configured ESP32 running compatible **Solar Controller firmware**
+- A Homey connected to the same local network
+- Homey firmware **7.4.0 or newer**
+- A fixed or reserved IP address for the Solar Controller is strongly recommended
+
+## Installation
+
+Install the **Solar Controller** app on Homey.
+
+After installation:
+
+1. Open **Devices** in Homey.
+2. Choose **Add device**.
+3. Select **Solar Controller**.
+4. Enter the IP address or hostname of your Solar Controller.
+5. Homey will check the connection.
+6. If the Solar Controller is reachable, the device can be added.
+
+Repeat these steps if you want to add more than one Solar Controller.
+
+## Network recommendation
+
+It is strongly recommended to give every Solar Controller a **fixed IP address** or a **DHCP reservation** in your router.
+
+This prevents the controller from receiving a different IP address after a router restart or reconnect, which could cause Homey to temporarily lose the connection.
+
+## Homey Flows
+
+The app includes Flow cards for supported Solar Controller functions.
+
+Depending on the firmware version and configuration, you can use Homey Flows for actions and conditions such as:
+
+- Monitoring Solar Controller values
+- Reacting to changes in power or temperature
+- Controlling supported operating modes
+- Switching supported functions
+- Using relay and Legionella status
+- Working with Multi Controller information
+
+Available Flow cards may depend on the firmware and enabled features of your Solar Controller.
+
+## Multiple Solar Controllers
+
+You can add multiple Solar Controllers to the same Homey installation.
+
+Each controller is added as its own Homey device and keeps its own:
+
+- IP address or hostname
+- Measurements
+- Status values
+- Controls
+- Flow cards
+
+## Firmware
+
+The Homey app communicates directly with the Solar Controller over the local network.
+
+For Solar Controller firmware, installation instructions, hardware information and documentation, visit:
+
+https://github.com/glijie/solar-controller-firmware
 
 ## Support
 
-- Homey app issues and bug reports: https://github.com/glijie/com.patrick.solarcontroller/issues
-- Solar Controller firmware, installation and hardware documentation: https://github.com/glijie/solar-controller-firmware
+For questions, bugs or feature requests related to the Homey app, use the GitHub Issues page of this repository.
 
-## Development / validation
+When reporting a problem, it is useful to include:
 
-Run the local project checks with:
-
-```bash
-npm test
-```
-
-Test the app on a Homey with:
-
-```bash
-homey app run
-```
-
-Before publishing, run Homey's publish-level validation:
-
-```bash
-homey app validate --level publish
-```
-
-## Source structure
-
-- `package.json` and `.homeycompose/app.json` contain the app version and must match.
-- `.homeycompose/app.json` is the editable app-manifest source.
-- `.homeycompose/capabilities/` contains custom capability definitions.
-- `.homeycompose/flow/` contains Flow card definitions.
-- `drivers/solar_controller/driver.compose.json` is the single editable driver manifest/settings source.
-- `app.json` is generated by Homey Compose during Homey CLI preprocessing and is not maintained as source.
-- No separate `driver.json` or `settings.json` copies are maintained.
-- `drivers/solar_controller/pair/manual_address.html` is the pairing view.
-- `scripts/validate-project.js` performs static project/Store checks.
-- `tests/smoke.js` covers HTTP/API behavior, pairing, Flow thresholds and mapper behavior.
-
-## Upgrades from development builds
-
-Existing devices from the earlier 0.7.x development builds can be upgraded without pairing again. Device identity and Host settings are retained; newly introduced capabilities/options are migrated where needed at app start.
+- Homey model
+- Homey firmware version
+- Homey app version
+- Solar Controller firmware version
+- Whether the Solar Controller is reachable directly through its IP address
+- A short description of what happens
 
 ## License
 
