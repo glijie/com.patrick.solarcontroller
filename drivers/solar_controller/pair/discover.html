@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Solar Controller</title>
+  <style>
+    .sc-list { display: grid; gap: 10px; margin: 16px 0; }
+    .sc-device { width: 100%; text-align: left; padding: 14px; border: 1px solid rgba(127,127,127,.25); border-radius: 12px; background: transparent; cursor: pointer; }
+    .sc-device:disabled { opacity: .55; cursor: default; }
+    .sc-name { display: block; font-weight: 700; font-size: 16px; }
+    .sc-meta { display: block; margin-top: 4px; opacity: .72; font-size: 13px; line-height: 1.35; word-break: break-word; }
+    .sc-status { min-height: 24px; margin: 10px 0; opacity: .75; text-align: center; }
+    .sc-actions { display: grid; gap: 10px; margin-top: 18px; }
+  </style>
+</head>
+<body>
+  <header class="homey-header">
+    <h1 class="homey-title" data-i18n="pair.discovery_title"></h1>
+    <p class="homey-subtitle" data-i18n="pair.discovery_subtitle"></p>
+  </header>
+
+  <div id="status" class="sc-status"></div>
+  <div id="controller-list" class="sc-list"></div>
+
+  <div class="sc-actions">
+    <button type="button" class="homey-button-secondary-full" id="refresh-button" data-i18n="pair.discovery_refresh"></button>
+    <button type="button" class="homey-button-secondary-full" id="manual-button" data-i18n="pair.discovery_manual"></button>
+  </div>
+
+  <script>
+    (function init() {
+      const status = document.getElementById('status');
+      const list = document.getElementById('controller-list');
+      const refreshButton = document.getElementById('refresh-button');
+      const manualButton = document.getElementById('manual-button');
+      let refreshTimer = null;
+      let busy = false;
+      let refreshing = false;
+
+      Homey.setTitle(Homey.__('pair.discovery_title'));
+      Homey.setSubtitle(Homey.__('pair.discovery_subtitle'));
+
+      function clearTimer() {
+        if (refreshTimer) clearInterval(refreshTimer);
+        refreshTimer = null;
+      }
+
+      function metadata(candidate) {
+        const parts = [];
+        if (candidate.serial) parts.push(candidate.serial);
+        if (candidate.address) parts.push(candidate.address + (candidate.port && candidate.port !== 80 ? ':' + candidate.port : ''));
+        if (candidate.firmware) parts.push(candidate.firmware);
+        if (candidate.alreadyPaired) parts.push(Homey.__('pair.discovery_paired'));
+        return parts.join(' · ');
+      }
+
+      async function pair(candidate) {
+        if (busy || candidate.alreadyPaired) return;
+        busy = true;
+        clearTimer();
+        Homey.showLoadingOverlay();
+        try {
+          const result = await Homey.emit('pair_discovered_controller', { id: candidate.id });
+          if (!result || !result.device) throw new Error(Homey.__('pair.connection_failed'));
+          await Homey.createDevice(result.device);
+          Homey.done();
+        } catch (err) {
+          busy = false;
+          const message = err && err.message ? err.message : String(err || Homey.__('pair.connection_failed'));
+          await Homey.alert(message, 'error');
+          Homey.hideLoadingOverlay();
+          startTimer();
+        }
+      }
+
+      function render(candidates) {
+        list.textContent = '';
+        if (!Array.isArray(candidates) || candidates.length === 0) {
+          status.textContent = Homey.__('pair.discovery_none');
+          return;
+        }
+
+        const available = candidates.filter(candidate => !candidate.alreadyPaired).length;
+        status.textContent = available > 0
+          ? Homey.__('pair.discovery_select')
+          : Homey.__('pair.discovery_all_paired');
+
+        candidates.forEach(candidate => {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'sc-device';
+          button.disabled = !!candidate.alreadyPaired;
+
+          const name = document.createElement('span');
+          name.className = 'sc-name';
+          name.textContent = candidate.name || Homey.__('pair.default_name');
+          button.appendChild(name);
+
+          const meta = document.createElement('span');
+          meta.className = 'sc-meta';
+          meta.textContent = metadata(candidate);
+          button.appendChild(meta);
+
+          button.addEventListener('click', () => pair(candidate));
+          list.appendChild(button);
+        });
+      }
+
+      async function refresh() {
+        if (busy || refreshing) return;
+        refreshing = true;
+        refreshButton.disabled = true;
+        try {
+          const candidates = await Homey.emit('get_discovered_controllers');
+          render(candidates || []);
+        } catch (_) {
+          status.textContent = Homey.__('pair.discovery_none');
+        } finally {
+          refreshing = false;
+          refreshButton.disabled = false;
+        }
+      }
+
+      function startTimer() {
+        clearTimer();
+        refreshTimer = setInterval(refresh, 2500);
+      }
+
+      refreshButton.addEventListener('click', refresh);
+      manualButton.addEventListener('click', async () => {
+        clearTimer();
+        await Homey.showView('manual_address');
+      });
+      window.addEventListener('beforeunload', clearTimer);
+
+      status.textContent = Homey.__('pair.discovery_searching');
+      refresh();
+      startTimer();
+    })();
+  </script>
+</body>
+</html>

@@ -33,14 +33,14 @@
           "id": "elec",
           "title": {
             "en": "Electricity is better",
-            "nl": "Elek beter"
+            "nl": "Elektriciteit is beter"
           }
         },
         {
           "id": "unknown",
           "title": {
             "en": "Unknown",
-            "nl": "Elektriciteit is beter"
+            "nl": "Onbekend"
           }
         }
       ]

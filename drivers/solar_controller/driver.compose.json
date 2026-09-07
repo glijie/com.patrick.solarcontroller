@@ -41,7 +41,13 @@
   ],
   "pair": [
     {
-      "id": "manual_address"
+      "id": "discover"
+    },
+    {
+      "id": "manual_address",
+      "navigation": {
+        "prev": "discover"
+      }
     }
   ],
   "capabilitiesOptions": {
@@ -470,5 +476,6 @@
   ],
   "connectivity": [
     "lan"
-  ]
+  ],
+  "discovery": "solarcontroller"
 }

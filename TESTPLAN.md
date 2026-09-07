@@ -1,142 +1,112 @@
-# Solar Controller Homey v1.0.2 — eindcontroleplan
+# Solar Controller Homey v1.1.0 — testplan ManagerDiscovery
 
-Deze versie is de eerste publieke App Store-release op basis van de bevestigde werkende v1.0.2 release-candidate en de eerder publish-gevalideerde technische baseline. Automatische LAN-discovery/mDNS is **bewust niet geïmplementeerd**. Handmatige invoer van IP-adres/hostnaam blijft in deze versie de methode om een controller toe te voegen.
+Deze testversie is bedoeld voor Solar Controller firmware **step309 of nieuwer**. Automatische mDNS-SD discovery via Homey ManagerDiscovery is de primaire pairingmethode; handmatig IP/hostnaam blijft alleen als fallback beschikbaar.
 
 ## 1. Voorcontrole op de pc
-
-Voer in de app-map uit:
 
 ```bash
 npm test
 homey app validate --level publish
 ```
 
-`npm test` moet volledig groen zijn. De Homey publish-validator moet daarna zonder errors slagen; beoordeel ook iedere warning.
+Beide controles moeten groen zijn voordat de app opnieuw wordt ingediend.
 
-## 2. Upgrade van bestaande v0.7.73
+## 2. Upgrade bestaand Homey-apparaat
 
-- Start/installeer v1.0.2 via Homey CLI over de bestaande installatie.
-- Bestaande Solar Controllers mogen **niet opnieuw gekoppeld** hoeven worden.
-- Controleer dat naam, Host, bestaande Flows en apparaatidentiteit behouden zijn.
-- Controleer dat eventueel nieuw toegevoegde capabilities vanzelf verschijnen.
+- Laat je huidige gekoppelde Solar Controller staan.
+- Start v1.1.0 via `homey app run` over de bestaande installatie.
+- De bestaande device-ID, naam, instellingen en Flows moeten behouden blijven.
+- In de CLI-log moet na de eerste succesvolle mDNS-match een regel verschijnen zoals `Discovery linked to SC-XXXXXXXXXXXX`.
+- De bestaande Host-instelling mag alleen automatisch veranderen wanneer Homey hetzelfde serienummer op een nieuw adres terugvindt.
 
-## 3. Schone pairing met handmatig adres
+## 3. Automatische pairing
 
-- Kies Solar Controller bij Apparaat toevoegen.
-- Vul een herkenbare apparaatnaam en het IP-adres of de hostnaam van de ESP32 in.
-- De app moet de controller eerst testen en daarna pas toevoegen.
-- Test ook een leeg adres, fout adres en een al gekoppeld adres; Homey moet een duidelijke melding geven en geen defect apparaat aanmaken.
-- Na koppelen blijft het controlleradres via apparaatinstellingen wijzigbaar.
+- Kies **Apparaat toevoegen → Solar Controller**.
+- Het eerste scherm moet automatisch zoeken; er mag niet eerst om een IP-adres worden gevraagd.
+- Een draaiende step309-controller moet zichtbaar worden met naam, `SC-...` serienummer, IP-adres en firmwareversie.
+- Een al gekoppelde controller moet als **Al toegevoegd** verschijnen en niet opnieuw toegevoegd kunnen worden.
+- Met meerdere ESP's moet iedere controller afzonderlijk verschijnen.
 
-## 4. Waarden / capabilities
+## 4. Nieuwe controller automatisch toevoegen
 
-Controleer minimaal:
-- actueel vermogen
-- hoofdtemperatuur
-- temperatuur 2, 3 en 4
-- PWM
-- Force Heat
-- handmatig relais
-- zonregeling
-- PWM-limiet
-- Legionella-cyclus + status
-- stroomprijs, gasprijs en verwarmadvies
-- Multi Controller-rol, fallback, groeps-PWM, peers, realtime TCP en temperatuurvrijgave
+Test indien een nog niet gekoppelde step309-controller beschikbaar is:
+- selecteer de gevonden controller;
+- Homey valideert eerst `/api/status_light`;
+- het apparaat wordt daarna toegevoegd;
+- de Homey device-ID is de genormaliseerde discovery-ID van het bestaande `SC-...` serienummer;
+- Host wordt automatisch op het gevonden adres gezet.
 
-Controleer specifiek ook geldige nulwaarden (0 W, 0% PWM, 0-prijs/waarde waar van toepassing): deze moeten correct in Homey kunnen verschijnen en mogen niet als 'geen waarde' worden behandeld.
+## 5. DHCP/adreswijziging
 
-## 5. Bediening vanuit Homey
+- Laat een reeds automatisch gekoppelde controller een ander DHCP-adres krijgen.
+- Homey moet via hetzelfde serienummer dezelfde controller herkennen.
+- `host` moet automatisch naar het nieuwe adres veranderen.
+- Het bestaande Homey-apparaat en alle Flows blijven behouden.
+- Polling moet zonder herpair terugkomen.
 
-Test:
-- Force Heat aan / uit
-- relais aan / uit
-- zonregeling wijzigen
-- PWM-limiet instellen
-- Legionella starten / stoppen
-- PWM instellen, inclusief de firmware-fallback wanneer `/api/pwm` niet beschikbaar is
+## 6. Handmatige fallback
 
-Controleer na iedere actie in de ESP-webinterface en daarna opnieuw in Homey dat de toestand gelijkloopt.
+- Klik **Controller niet gevonden? Handmatig toevoegen**.
+- De bestaande IP/hostnaam-pairing moet nog werken.
+- Test leeg adres, fout adres en bestaand adres.
+- Deze route is alleen bedoeld voor netwerken waar mDNS/multicast wordt geblokkeerd.
 
-## 6. Flow-triggers
+## 7. REST/API-regressie
 
-Test specifiek:
-- **Vermogen boven X**: alleen bij een echte opwaartse kruising van de ingestelde drempel.
-- **Temperatuur boven X**: alleen bij een echte opwaartse kruising van de ingestelde drempel.
-- PWM gewijzigd.
-- Force Heat ingeschakeld / uitgeschakeld.
-- relais ingeschakeld / uitgeschakeld.
-- Legionella gestart / gestopt.
-- stroomprijs / gasprijs / verwarmadvies gewijzigd.
-- regelmodus / zonregeling gewijzigd.
-- temperatuur 2 / 3 / 4 gewijzigd.
-- Multi Controller-rol / fallback / temperatuurvrijgave gewijzigd.
+Controleer na discovery minimaal:
+- actueel vermogen;
+- temperatuur 1 t/m 4;
+- PWM;
+- Force Heat;
+- relais;
+- zonregeling;
+- PWM-limiet;
+- Legionella;
+- prijzen/verwarmadvies;
+- Multi Controller-status.
 
-Voor de twee drempeltriggers ook testen: onder→boven = één trigger, boven→hoger = geen nieuwe trigger, boven→onder = geen trigger, daarna onder→boven = opnieuw één trigger.
+Discovery bepaalt alleen waar de ESP staat; alle gegevens en bediening blijven via de bestaande REST API lopen.
 
-## 7. Flow-conditions en actions
+## 8. Home Assistant / MQTT
 
-- Maak voor iedere condition minimaal één Flow die zowel `true` als `false` kan opleveren.
-- Voer iedere action minimaal eenmaal uit.
-- Controleer dat een actie alleen de geselecteerde Solar Controller beïnvloedt.
+Controleer op step309 dat bestaande Home Assistant- en MQTT-integraties normaal blijven functioneren. De Homey ManagerDiscovery-wijziging mag hier niets aan veranderen.
 
-## 8. Multi-ESP
+## 9. Flows
 
-Test met 1, 2 en indien beschikbaar 3 Solar Controllers:
-- ieder Homey-apparaat gebruikt zijn eigen Host
-- waarden worden niet tussen apparaten verwisseld
-- acties gaan uitsluitend naar de geselecteerde ESP
-- device-Flows van ESP 1 mogen niet door ESP 2/3 worden geactiveerd
-- zet één ESP uit: de andere Homey-apparaten moeten normaal blijven werken
-- wijzig het IP-adres van één reeds gekoppelde ESP via de apparaatinstellingen: de Homey-device-ID en bestaande Flows moeten behouden blijven
+Test minimaal:
+- Vermogen boven X;
+- Temperatuur boven X;
+- Force Heat aan/uit;
+- één condition;
+- één action.
 
-## 9. Herstel / netwerkstoringen
+Controleer speciaal `Verwarmadvies is → Onbekend` in de Nederlandse interface.
+
+## 10. Netwerkstoringen
 
 Test:
-- ESP herstart
-- Wi-Fi van één ESP tijdelijk onderbreken
-- router/AP herstart met hetzelfde gereserveerde IP
-- Homey-app herstart
-- Homey herstart
-- tijdelijk fout Host instellen en daarna herstellen
+- ESP reboot;
+- Wi-Fi tijdelijk weg;
+- router/AP reboot;
+- Homey-app restart;
+- Homey restart.
 
-Verwachting: de betrokken controller mag tijdelijk `unavailable` worden, maar de app mag niet crashen. Na herstel moet polling automatisch terugkomen zonder herpair. Andere gekoppelde ESP's moeten ondertussen normaal blijven werken.
+Dezelfde `SC-...` controller moet steeds als hetzelfde apparaat terugkomen.
 
-## 10. Instellingen en belasting
+## 11. Presentatie
 
-Controleer de profielen Aanbevolen, Standaard en Lagere belasting. Schakel daarna geavanceerde instellingen in en test:
-- verversingsintervallen
-- adaptief verversen
-- heat-compare/prijzen-advies
-- update-drempels
-- Flow-triggervertraging/minimuminterval
-- HTTP-timeout
-- maximaal gelijktijdige API-aanvragen
-- extra temperatuursensoren
-- uitgebreide logging
-- geavanceerd PWM API-endpoint
+Controleer:
+- transparant line-art app-icoon op klein formaat;
+- discovery-pairing volledig Nederlands en Engels;
+- handmatige route duidelijk als fallback;
+- Store-assets en driverbeeld ongewijzigd.
 
-## 11. Nederlands / Engels / presentatie
+## 12. Certificeringscontrole
 
-Controleer Homey in beide talen:
-- geen mojibake (`Ã`, `Â`)
-- pairing volledig vertaald
-- Flow-kaarten volledig vertaald
-- apparaatinstellingen volledig vertaald
-- capabilitynamen logisch en consistent
-- app- en driverafbeeldingen correct weergegeven
-- app- en drivericoon duidelijk verschillend
-- Store-README is kort en zonder URL/Markdown
+Voor opnieuw indienen:
 
-## 12. Store-/publishcontrole
+```bash
+homey app validate --level publish
+```
 
-Controleer in de Homey Developer omgeving:
-- appnaam, tagline, categorie Energy en tags
-- appafbeeldingen (250×175, 500×350, 1000×700)
-- driverafbeeldingen (75×75, 500×500, 1000×1000)
-- homepage/support/source-links
-- compatibiliteit vanaf Homey 7.4.0
-- platform local
-
-## 13. Bewust nog open na v1.0.2
-
-Automatische discovery/mDNS. Dit wordt pas als aparte fase onderzocht nadat bovenstaande release-candidate functioneel is goedgekeurd. Tot die tijd is een DHCP-reservering/vast IP per Solar Controller aanbevolen.
+Daarna als Test publiceren, automatische pairing op mobiel en desktop controleren, en pas daarna opnieuw submitten voor certificering.

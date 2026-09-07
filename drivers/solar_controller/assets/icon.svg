@@ -1,18 +1,25 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 960">
-  <g fill="#000">
-    <circle cx="310" cy="255" r="125"/>
-    <rect x="300" y="260" width="390" height="500" rx="115"/>
-    <rect x="410" y="220" width="170" height="55" rx="22"/>
-    <rect x="375" y="750" width="55" height="115" rx="20"/>
-    <rect x="555" y="750" width="55" height="115" rx="20"/>
-    <path d="M495 360c58 76 94 119 94 172a94 94 0 1 1-188 0c0-53 36-96 94-172z"/>
-    <circle cx="495" cy="650" r="74"/>
-    <path d="M760 370a180 180 0 0 1 0 240h-45a137 137 0 0 0 0-240z"/>
-    <path d="M812 320a250 250 0 0 1 0 340h-42a207 207 0 0 0 0-340z"/>
-  </g>
-  <g fill="#fff">
-    <path d="M495 406c35 49 55 77 55 113a55 55 0 1 1-110 0c0-36 20-64 55-113z"/>
-    <circle cx="495" cy="650" r="43"/>
-    <rect x="489" y="610" width="12" height="40" rx="6"/>
+  <g fill="none" stroke="#000000" stroke-width="42" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Main boiler body -->
+    <path d="M292 184c0-58 47-105 105-105h220c58 0 105 47 105 105v520c0 58-47 105-105 105H397c-58 0-105-47-105-105z"/>
+
+    <!-- Subtle top and bottom seams -->
+    <path d="M332 230c93-24 257-24 350 0"/>
+    <path d="M332 760c93 24 257 24 350 0"/>
+
+    <!-- Water droplet -->
+    <path d="M507 326c-37 50-58 78-58 108a58 58 0 0 0 116 0c0-30-21-58-58-108z"/>
+
+    <!-- Control dial -->
+    <circle cx="507" cy="626" r="66"/>
+    <path d="M507 587v39"/>
+
+    <!-- Boiler connections -->
+    <path d="M410 809v66"/>
+    <path d="M604 809v66"/>
+
+    <!-- Connectivity waves -->
+    <path d="M770 346c46 43 46 131 0 174"/>
+    <path d="M823 298c78 72 78 214 0 286"/>
   </g>
 </svg>

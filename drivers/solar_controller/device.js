@@ -56,10 +56,73 @@ const CONTROL_CAPABILITY_OPTIONS = {
 };
 
 
+function normalizeDiscoveryId(value) {
+  return String(value || '').trim().toLowerCase();
+}
+
+function normalizeHostname(value) {
+  return String(value || '')
+    .trim()
+    .toLowerCase()
+    .replace(/^\[/, '')
+    .replace(/\]$/, '')
+    .replace(/\.$/, '');
+}
+
+function parseConfiguredEndpoint(value) {
+  const base = normalizeBaseUrl(value);
+  if (!base) return null;
+  try {
+    const url = new URL(base);
+    return {
+      hostname: normalizeHostname(url.hostname),
+      port: Number(url.port) || (url.protocol === 'https:' ? 443 : 80),
+    };
+  } catch (_) {
+    return null;
+  }
+}
+
+function hostnameAliases(value) {
+  const host = normalizeHostname(value);
+  if (!host) return new Set();
+  const aliases = new Set([host]);
+  if (host.endsWith('.local')) aliases.add(host.slice(0, -6));
+  return aliases;
+}
+
+function configuredHostMatchesDiscovery(configuredHost, discoveryResult) {
+  const configured = parseConfiguredEndpoint(configuredHost);
+  if (!configured || !discoveryResult) return false;
+
+  const discoveryPort = Number(discoveryResult.port) || 80;
+  if (configured.port !== discoveryPort) return false;
+
+  const configuredAliases = hostnameAliases(configured.hostname);
+  const candidates = [discoveryResult.address, discoveryResult.host];
+  for (const candidate of candidates) {
+    const aliases = hostnameAliases(candidate);
+    for (const alias of aliases) {
+      if (configuredAliases.has(alias)) return true;
+    }
+  }
+  return false;
+}
+
+function discoveryHost(discoveryResult) {
+  const address = String(discoveryResult && discoveryResult.address || '').trim();
+  if (!address) return '';
+  const port = Number(discoveryResult && discoveryResult.port) || 80;
+  if (port === 80) return address;
+  if (address.includes(':') && !/^\[.*\]$/.test(address)) return `[${address}]:${port}`;
+  return `${address}:${port}`;
+}
+
+
 class SolarControllerDevice extends Homey.Device {
 
   async onInit() {
-    this.log('SolarControllerDevice init (v1.0.2)');
+    this.log('SolarControllerDevice init (v1.1.0)');
 
     // Polling loop helper (timer + overlap protection + generation guard)
     this._poller = new SolarControllerPoller({
@@ -234,6 +297,80 @@ class SolarControllerDevice extends Homey.Device {
 
   async onUninit() {
     this._stopPolling();
+  }
+
+  onDiscoveryResult(discoveryResult) {
+    const discoveryId = normalizeDiscoveryId(discoveryResult && discoveryResult.id);
+    if (!discoveryId) return false;
+
+    const data = this.getData() || {};
+    const dataId = normalizeDiscoveryId(data.id);
+    if (dataId && dataId === discoveryId) return true;
+
+    const storedId = normalizeDiscoveryId(this.getStoreValue('discovery_id'));
+    if (storedId) return storedId === discoveryId;
+
+    // Migration path for devices paired before ManagerDiscovery existed:
+    // match once by their currently configured IP/hostname, then persist the
+    // stable SC serial discovery ID in onDiscoveryAvailable().
+    return configuredHostMatchesDiscovery(this.getSetting('host'), discoveryResult);
+  }
+
+  onDiscoveryAvailable(discoveryResult) {
+    this._applyDiscoveryResult(discoveryResult, 'available').catch((err) => {
+      this.error('Failed to apply Solar Controller discovery result', err);
+    });
+  }
+
+  onDiscoveryAddressChanged(discoveryResult) {
+    this._applyDiscoveryResult(discoveryResult, 'address-changed').catch((err) => {
+      this.error('Failed to apply Solar Controller discovery address change', err);
+    });
+  }
+
+  onDiscoveryLastSeenChanged(discoveryResult) {
+    // Homey manages discovery availability. No persistent write is needed for
+    // every multicast announcement. Migration is handled on first availability.
+    this._debug(`Discovery seen again: ${discoveryResult && discoveryResult.id || 'unknown'}`);
+  }
+
+  async _applyDiscoveryResult(discoveryResult, reason) {
+    if (!discoveryResult) return;
+    const id = normalizeDiscoveryId(discoveryResult.id);
+    const nextHost = discoveryHost(discoveryResult);
+    if (!id || !nextHost) return;
+
+    if (normalizeDiscoveryId(this.getStoreValue('discovery_id')) !== id) {
+      await this.setStoreValue('discovery_id', id);
+      this.log(`Discovery linked to ${id.toUpperCase()}`);
+    }
+    if (this.getStoreValue('discovery_managed') !== true) {
+      await this.setStoreValue('discovery_managed', true);
+    }
+    const fw = String(discoveryResult.txt && discoveryResult.txt.fw || '').trim();
+    if (fw && this.getStoreValue('discovery_fw') !== fw) {
+      await this.setStoreValue('discovery_fw', fw);
+    }
+
+    const currentHost = (this._settingsCache && this._settingsCache.host !== undefined)
+      ? this._settingsCache.host
+      : this.getSetting('host');
+    const currentUrl = normalizeBaseUrl(currentHost).toLowerCase();
+    const nextUrl = normalizeBaseUrl(nextHost).toLowerCase();
+    if (currentUrl === nextUrl) return;
+
+    this.log(`Discovery ${reason}: controller address ${currentHost || '(unset)'} -> ${nextHost}`);
+    if (!this._settingsCache) this._settingsCache = {};
+    this._settingsCache.host = nextHost;
+    await this.setSettings({ host: nextHost });
+
+    // Repoint the existing REST poller immediately. Discovery only maintains
+    // the address; all controller data still travels over the existing API.
+    if (this._poller) {
+      this._stopPolling();
+      await sleep(100);
+      await this._startPolling();
+    }
   }
 
   async onSettings({ changedKeys, newSettings }) {
@@ -661,3 +798,7 @@ class SolarControllerDevice extends Homey.Device {
 }
 
 module.exports = SolarControllerDevice;
+
+module.exports.normalizeDiscoveryId = normalizeDiscoveryId;
+module.exports.configuredHostMatchesDiscovery = configuredHostMatchesDiscovery;
+module.exports.discoveryHost = discoveryHost;

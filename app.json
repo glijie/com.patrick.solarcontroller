@@ -1,4 +1,5 @@
 {
+  "_comment": "This file is generated. Edit .homeycompose/app.json, drivers/*/driver.compose.json and .homeycompose/* instead.",
   "id": "com.patrick.solarcontroller",
   "name": {
     "en": "Solar Controller",
@@ -11,7 +12,7 @@
   "author": {
     "name": "Patrick"
   },
-  "version": "1.0.2",
+  "version": "1.1.0",
   "compatibility": ">=7.4.0",
   "sdk": 3,
   "category": "energy",
@@ -90,7 +91,13 @@
       ],
       "pair": [
         {
-          "id": "manual_address"
+          "id": "discover"
+        },
+        {
+          "id": "manual_address",
+          "navigation": {
+            "prev": "discover"
+          }
         }
       ],
       "capabilitiesOptions": {
@@ -520,6 +527,7 @@
       "connectivity": [
         "lan"
       ],
+      "discovery": "solarcontroller",
       "id": "solar_controller",
       "icon": "/drivers/solar_controller/assets/icon.svg"
     }
@@ -1089,6 +1097,27 @@
       "uiComponent": "sensor",
       "insights": false,
       "icon": "/assets/icons/safety.svg"
+    }
+  },
+  "discovery": {
+    "solarcontroller": {
+      "type": "mdns-sd",
+      "mdns-sd": {
+        "name": "solarcontroller",
+        "protocol": "tcp"
+      },
+      "id": "{{txt.id}}",
+      "conditions": [
+        [
+          {
+            "field": "txt.model",
+            "match": {
+              "type": "string",
+              "value": "solar-controller"
+            }
+          }
+        ]
+      ]
     }
   }
 }

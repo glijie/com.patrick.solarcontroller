@@ -1,4 +1,8 @@
 {
+  "1.1.0": {
+    "en": "Certification update: clean transparent line-art icon, automatic Solar Controller discovery using Homey ManagerDiscovery with mDNS-SD, manual address fallback, corrected Dutch Flow translation, and Homey Compose cleanup.",
+    "nl": "Certificeringsupdate: strak transparant lijnicoon, automatische Solar Controller-discovery via Homey ManagerDiscovery met mDNS-SD, handmatige adresfallback, gecorrigeerde Nederlandse Flow-vertaling en opgeschoonde Homey Compose-structuur."
+  },
   "1.0.2": {
     "en": "Added the official GitHub Issues page for Homey app support and bug reports.",
     "nl": "Officiële GitHub Issues-pagina toegevoegd voor ondersteuning en foutmeldingen van de Homey-app."

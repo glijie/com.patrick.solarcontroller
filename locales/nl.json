@@ -38,6 +38,19 @@
     "address_required": "Vul het IP-adres of de hostnaam van je Solar Controller in.",
     "address_invalid": "Het controlleradres is ongeldig.",
     "address_already_paired": "Er is al een Solar Controller met dit adres toegevoegd.",
-    "connection_failed": "Homey kan op dit adres geen Solar Controller bereiken. Controleer het adres, Wi-Fi en de status van de controller."
+    "connection_failed": "Homey kan op dit adres geen Solar Controller bereiken. Controleer het adres, Wi-Fi en de status van de controller.",
+    "discovery_title": "Solar Controller zoeken",
+    "discovery_subtitle": "Homey zoekt automatisch in je lokale netwerk naar Solar Controllers.",
+    "discovery_searching": "Solar Controllers zoeken…",
+    "discovery_none": "Nog geen Solar Controller gevonden. Controleer of deze online is en firmware step309 of nieuwer gebruikt.",
+    "discovery_select": "Selecteer de Solar Controller die je wilt toevoegen.",
+    "discovery_all_paired": "Alle gevonden Solar Controllers zijn al toegevoegd.",
+    "discovery_refresh": "Opnieuw zoeken",
+    "discovery_manual": "Controller niet gevonden? Handmatig toevoegen",
+    "discovery_paired": "Al toegevoegd",
+    "discovery_missing": "Deze Solar Controller is niet meer beschikbaar. Zoek opnieuw en probeer het nogmaals.",
+    "discovery_already_paired": "Deze Solar Controller is al aan Homey toegevoegd.",
+    "manual_title": "Solar Controller handmatig toevoegen",
+    "manual_subtitle": "Gebruik deze fallback alleen wanneer automatische discovery op je netwerk niet beschikbaar is."
   }
 }

@@ -19,6 +19,8 @@ const { SolarControllerApiClient } = require('../lib/sc_api_client');
 const SolarControllerApp = require('../app');
 const SolarControllerDriver = require('../drivers/solar_controller/driver');
 const { DEFAULT_DEVICE_SETTINGS } = SolarControllerDriver;
+const SolarControllerDevice = require('../drivers/solar_controller/device');
+const { configuredHostMatchesDiscovery, discoveryHost } = SolarControllerDevice;
 const driverCompose = require('../drivers/solar_controller/driver.compose.json');
 const mappers = require('../lib/sc_mappers');
 
@@ -130,6 +132,25 @@ async function testPairing() {
     res.statusCode = 404; res.end('{}');
   });
   const port = await listen(server);
+
+  const discoveryResult = {
+    id: 'sc-aabbccddeeff',
+    address: '127.0.0.1',
+    port,
+    host: 'sc-aabbccddeeff.local.',
+    txt: {
+      id: 'sc-aabbccddeeff',
+      model: 'solar-controller',
+      fw: 'v2026.09.07.01',
+      name: 'boiler zolder',
+      api: '1',
+    },
+  };
+  const strategy = {
+    getDiscoveryResult: id => id === discoveryResult.id ? discoveryResult : null,
+    getDiscoveryResults: () => ({ [discoveryResult.id]: discoveryResult }),
+  };
+
   const driver = new SolarControllerDriver();
   driver.homey = { __: key => ({
     'pair.default_name': 'Solar Controller',
@@ -137,24 +158,104 @@ async function testPairing() {
     'pair.address_invalid': 'invalid',
     'pair.address_already_paired': 'duplicate',
     'pair.connection_failed': 'failed',
+    'pair.discovery_missing': 'missing',
+    'pair.discovery_already_paired': 'discovery duplicate',
   }[key] || key) };
+  driver.getDiscoveryStrategy = () => strategy;
   driver.getDevices = () => [];
+
   const handlers = {};
   await driver.onPair({ setHandler(name, fn) { handlers[name] = fn; } });
+  assert.strictEqual(typeof handlers.get_discovered_controllers, 'function');
+  assert.strictEqual(typeof handlers.pair_discovered_controller, 'function');
   assert.strictEqual(typeof handlers.validate_controller, 'function');
+
+  const found = await handlers.get_discovered_controllers();
+  assert.strictEqual(found.length, 1);
+  assert.strictEqual(found[0].id, 'sc-aabbccddeeff');
+  assert.strictEqual(found[0].serial, 'SC-AABBCCDDEEFF');
+  assert.strictEqual(found[0].name, 'Boiler Zolder');
+  assert.strictEqual(found[0].alreadyPaired, false);
+  assert.strictEqual(found[0].host, `127.0.0.1:${port}`);
+
+  const discovered = await handlers.pair_discovered_controller({ id: 'SC-AABBCCDDEEFF' });
+  assert.strictEqual(discovered.device.data.id, 'sc-aabbccddeeff');
+  assert.strictEqual(discovered.device.settings.host, `127.0.0.1:${port}`);
+  assert.strictEqual(discovered.device.store.discovery_id, 'sc-aabbccddeeff');
+  assert.strictEqual(discovered.device.store.discovery_managed, true);
+  assert.strictEqual(discovered.device.name, 'Boiler Zolder');
+
+  driver.getDevices = () => [{
+    getData: () => ({ id: 'sc-aabbccddeeff' }),
+    getStoreValue: () => null,
+    getSetting: () => null,
+  }];
+  await assert.rejects(() => handlers.pair_discovered_controller({ id: 'sc-aabbccddeeff' }), /discovery duplicate/);
+
+  driver.getDevices = () => [];
   const host = `127.0.0.1:${port}`;
-  const result = await handlers.validate_controller({ host, name: 'Boiler' });
-  assert.strictEqual(result.device.name, 'Boiler');
-  assert.strictEqual(result.device.settings.host, host);
-  assert.match(result.device.data.id, /^solar_controller_/);
-  assert.strictEqual(result.device.settings.performance_mode, 'auto');
+  const manual = await handlers.validate_controller({ host, name: 'Boiler' });
+  assert.strictEqual(manual.device.name, 'Boiler');
+  assert.strictEqual(manual.device.settings.host, host);
+  assert.match(manual.device.data.id, /^solar_controller_/);
+  assert.strictEqual(manual.device.settings.performance_mode, 'auto');
+  assert.strictEqual(manual.device.store.discovery_managed, false);
 
   driver.getDevices = () => [{ getSetting: key => key === 'host' ? host : null }];
   await assert.rejects(() => handlers.validate_controller({ host }), /duplicate/);
   await assert.rejects(() => handlers.validate_controller({ host: '' }), /required/);
   driver.getDevices = () => [];
   await assert.rejects(() => handlers.validate_controller({ host: '127.0.0.1:1' }), /failed/);
+
+  // Discovery migration helpers: existing manually paired devices may match
+  // either the current IP address or the configured mDNS hostname.
+  assert.strictEqual(configuredHostMatchesDiscovery(`127.0.0.1:${port}`, discoveryResult), true);
+  assert.strictEqual(configuredHostMatchesDiscovery(`sc-aabbccddeeff.local:${port}`, discoveryResult), true);
+  assert.strictEqual(configuredHostMatchesDiscovery(`192.168.1.99:${port}`, discoveryResult), false);
+  assert.strictEqual(discoveryHost(discoveryResult), `127.0.0.1:${port}`);
+
   await close(server);
+}
+
+async function testDeviceDiscoveryMigration() {
+  const result = {
+    id: 'sc-aabbccddeeff',
+    address: '192.168.1.87',
+    port: 80,
+    host: 'sc-aabbccddeeff.local.',
+    txt: { fw: 'v2026.09.07.01' },
+  };
+
+  const device = new SolarControllerDevice();
+  const store = new Map();
+  let settings = { host: '192.168.1.41' };
+  let restarted = 0;
+  device.getData = () => ({ id: 'legacy-device-id' });
+  device.getStoreValue = key => store.get(key);
+  device.setStoreValue = async (key, value) => { store.set(key, value); };
+  device.getSetting = key => settings[key];
+  device.setSettings = async patch => { settings = { ...settings, ...patch }; };
+  device._settingsCache = { host: '192.168.1.41' };
+  device._poller = {};
+  device._stopPolling = () => { restarted += 1; };
+  device._startPolling = async () => { restarted += 1; };
+  device._debug = () => {};
+  device.log = () => {};
+  device.error = () => {};
+
+  // Before a stable discovery id is stored, the old address must match once.
+  assert.strictEqual(device.onDiscoveryResult({ ...result, address: '192.168.1.41' }), true);
+  await device._applyDiscoveryResult(result, 'test');
+  assert.strictEqual(store.get('discovery_id'), 'sc-aabbccddeeff');
+  assert.strictEqual(store.get('discovery_managed'), true);
+  assert.strictEqual(store.get('discovery_fw'), 'v2026.09.07.01');
+  assert.strictEqual(settings.host, '192.168.1.87');
+  assert.strictEqual(device._settingsCache.host, '192.168.1.87');
+  assert.strictEqual(restarted, 2);
+
+  // After migration the stable serial wins, regardless of address.
+  assert.strictEqual(device.onDiscoveryResult({ ...result, address: '192.168.1.100' }), true);
+  assert.strictEqual(device.onDiscoveryResult({ ...result, id: 'sc-ffffffffffff' }), false);
 }
 
 class MapperDevice {
@@ -261,6 +362,7 @@ async function testMappers() {
   await testFlowRegistration();
   testDefaultSettingsParity();
   await testPairing();
+  await testDeviceDiscoveryMigration();
   await testMappers();
   console.log('Smoke tests OK');
 })().catch(err => {

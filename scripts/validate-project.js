@@ -45,10 +45,33 @@ function walkTranslations(value, where) {
 
 const pkg = json('package.json');
 const compose = json('.homeycompose/app.json');
-const generated = json('app.json');
+
+// Homey CLI reads root app.json before Compose preprocessing when running the app.
+// Keep app.json as generated output, but do not keep duplicate per-driver generated manifests.
+if (!exists('app.json')) fail('Generated root app.json is missing; homey app run requires it before preprocessing');
+if (exists('drivers/solar_controller/driver.json')) fail('Duplicate generated driver.json must not be kept; driver.compose.json is the source of truth');
+if (exists('drivers/solar_controller/settings.json')) fail('Duplicate generated settings.json must not be kept; driver.compose.json is the source of truth');
+if (exists('app.json')) {
+  const generatedApp = json('app.json');
+  if (generatedApp.id !== compose.id || generatedApp.version !== compose.version || generatedApp.sdk !== compose.sdk) {
+    fail('Generated app.json does not match .homeycompose/app.json identity/version/sdk');
+  }
+  const generatedDriver = Array.isArray(generatedApp.drivers) ? generatedApp.drivers.find(d => d.id === 'solar_controller') : null;
+  if (!generatedDriver) fail('Generated app.json is missing solar_controller driver');
+  else if (generatedDriver.discovery !== 'solarcontroller') fail('Generated app.json driver is missing solarcontroller discovery link');
+  const generatedDiscovery = generatedApp.discovery && generatedApp.discovery.solarcontroller;
+  if (!generatedDiscovery || generatedDiscovery.type !== 'mdns-sd') fail('Generated app.json is missing solarcontroller mDNS discovery');
+}
 const driver = json('drivers/solar_controller/driver.compose.json');
 
-if (pkg.version !== compose.version || compose.version !== generated.version) fail(`Version mismatch package=${pkg.version}, compose=${compose.version}, app=${generated.version}`);
+// Homey Compose is the only editable manifest source. Homey's CLI generates
+// /app.json during preprocessing. Legacy duplicate driver/settings manifests
+// must not be kept in the source tree.
+for (const rel of ['drivers/solar_controller/driver.json', 'drivers/solar_controller/settings.json']) {
+  if (exists(rel)) fail(`Generated duplicate manifest should not be kept in source: ${rel}`);
+}
+
+if (pkg.version !== compose.version) fail(`Version mismatch package=${pkg.version}, compose=${compose.version}`);
 if (compose.sdk !== 3) fail('SDK must be 3');
 if (compose.runtime !== 'nodejs') fail('Runtime must be nodejs');
 if (!Array.isArray(compose.platforms) || compose.platforms.join(',') !== 'local') fail('App must target only local Homey');
@@ -95,12 +118,39 @@ for (const rel of ['README.txt', 'README.nl.txt']) {
 
 if (!Array.isArray(driver.connectivity) || !driver.connectivity.includes('lan')) fail('Driver connectivity must include lan');
 if (!Array.isArray(driver.platforms) || !driver.platforms.includes('local')) fail('Driver must support local platform');
-if (!Array.isArray(driver.pair) || driver.pair.length !== 1 || driver.pair[0].id !== 'manual_address') fail('Manual pairing view is not configured as expected');
+
+if (driver.discovery !== 'solarcontroller') fail('Driver must be linked to solarcontroller discovery');
+if (!exists('.homeycompose/discovery/solarcontroller.json')) fail('Solar Controller discovery strategy is missing');
+else {
+  const discovery = json('.homeycompose/discovery/solarcontroller.json');
+  if (discovery.type !== 'mdns-sd') fail('Solar Controller discovery must use mdns-sd');
+  if (!discovery['mdns-sd'] || discovery['mdns-sd'].name !== 'solarcontroller' || discovery['mdns-sd'].protocol !== 'tcp') {
+    fail('Solar Controller mDNS service must be _solarcontroller._tcp');
+  }
+  if (discovery.id !== '{{txt.id}}') fail('Solar Controller discovery id must use txt.id');
+  const rules = Array.isArray(discovery.conditions) ? discovery.conditions.flat() : [];
+  const modelRule = rules.find(rule => rule && rule.field === 'txt.model');
+  if (!modelRule || !modelRule.match || modelRule.match.type !== 'string' || modelRule.match.value !== 'solar-controller') {
+    fail('Solar Controller discovery must filter txt.model=solar-controller');
+  }
+}
+
+if (!Array.isArray(driver.pair) || driver.pair.length !== 2 || driver.pair[0].id !== 'discover' || driver.pair[1].id !== 'manual_address') {
+  fail('Pairing must be automatic discovery first with manual fallback second');
+}
+if (!exists('drivers/solar_controller/pair/discover.html')) fail('Automatic discovery pairing HTML is missing');
+else {
+  const html = read('drivers/solar_controller/pair/discover.html');
+  if (!/Homey\.emit\(['"]get_discovered_controllers/.test(html)) fail('Discovery pairing view does not request ManagerDiscovery results');
+  if (!/Homey\.emit\(['"]pair_discovered_controller/.test(html)) fail('Discovery pairing view does not prepare discovered controllers');
+  if (!/Homey\.createDevice\(/.test(html)) fail('Discovery pairing view does not create the selected device');
+  if (!/Homey\.showView\(['"]manual_address/.test(html)) fail('Discovery pairing view has no manual fallback route');
+}
 if (!exists('drivers/solar_controller/pair/manual_address.html')) fail('Manual pairing HTML is missing');
 else {
   const html = read('drivers/solar_controller/pair/manual_address.html');
-  if (!/Homey\.emit\(['"]validate_controller/.test(html)) fail('Pairing view does not validate the controller');
-  if (!/Homey\.createDevice\(/.test(html)) fail('Pairing view does not create the device');
+  if (!/Homey\.emit\(['"]validate_controller/.test(html)) fail('Manual pairing view does not validate the controller');
+  if (!/Homey\.createDevice\(/.test(html)) fail('Manual pairing view does not create the device');
   if (!/type=["']button["']/.test(html)) fail('Pairing action button must explicitly use type="button"');
 }
 
@@ -175,6 +225,7 @@ const localeReferenceSources = [
   read('drivers/solar_controller/device.js'),
   read('drivers/solar_controller/driver.js'),
   read('lib/sc_mappers.js'),
+  read('drivers/solar_controller/pair/discover.html'),
   read('drivers/solar_controller/pair/manual_address.html'),
 ].join('\n');
 const localeRefs = new Set();
